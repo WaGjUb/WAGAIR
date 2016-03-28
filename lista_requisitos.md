@@ -6,7 +6,7 @@ _Descrição: O sistema deve permitir que o cliente faça compras de passagens d
 
 Gerencias conexão
 -----------------
-*A empresa deve cadastrar conexões caso haja (o cliente deve poder escolher o assento em todos os voos)
+* A empresa deve cadastrar conexões caso haja (o cliente deve poder escolher o assento em todos os voos)
 
 Gerar ticket
 ------------
