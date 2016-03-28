@@ -29,8 +29,8 @@ Consulta de voos
 ----------------
 _Descrição: O cliente deve poder consultar informações de voo, como: Horários, rotas, assentos disponiveis... etc_
 
-Realizar pagamento
+###removido _Realizar pagamento
 ------------------
-_Descrição: O cliente deve realizar o pagamento_
+Descrição: O cliente deve realizar o pagamento_
 
 
