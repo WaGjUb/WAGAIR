@@ -4,7 +4,8 @@ Gerenciar compra e vendas
 * Cancelar compra  
 _Descrição: O sistema deve permitir que o cliente faça compras de passagens disponíveis no sistema_
 
--Gerencias conexão
+Gerencias conexão
+-----------------
 *A empresa deve cadastrar conexões caso haja (o cliente deve poder escolher o assento em todos os voos)
 
 Gerar ticket
