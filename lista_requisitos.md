@@ -4,7 +4,7 @@ Gerenciar compra e vendas
 * Cancelar compra  
 _Descrição: O sistema deve permitir que o cliente faça compras de passagens disponíveis no sistema_
 
-Gerencias conexão
+Gerenciar conexão
 -----------------
 * A empresa deve cadastrar conexões caso haja (o cliente deve poder escolher o assento em todos os voos)
 
@@ -28,3 +28,9 @@ _Descrição: O cliente deve realizar um cadastro no banco de dados ANTES de efe
 Consulta de voos
 ----------------
 _Descrição: O cliente deve poder consultar informações de voo, como: Horários, rotas, assentos disponiveis... etc_
+
+Realizar pagamento
+------------------
+_Descrição: O cliente deve realizar o pagamento_
+
+
