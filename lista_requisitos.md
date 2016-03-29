@@ -1,36 +1,34 @@
-Gerenciar compra e vendas
+Controlar vendas
 -------------------------
-* Realizar compra
-* Cancelar compra  
+* Realizar venda
+* Cancelar venda  
 _Descrição: O sistema deve permitir que o cliente faça compras de passagens disponíveis no sistema_
 
-Gerenciar conexão
------------------
-* A empresa deve cadastrar conexões caso haja (o cliente deve poder escolher o assento em todos os voos)
-
-Gerar ticket
-------------
-* Hash de venda e de passagem
-_Descriçao: O sistema deve ser capaz de gerar um ID para cada passagem e para cada venda_
-
-Controlar passagens
+Cadastrar voos
 -------------------
 _Descrição: O sistema deve garantir que não exista vendas fantasmas e que as vendas terminem quando todas as passagens sejam compradas_
 
-Check-in
+Cadastrar conexão de voos
+-----------------
+_Descrição: A empresa deve cadastrar conexões caso haja (o cliente deve poder escolher o assento em todos os voos)_
+
+Gerar passagens
+------------
+* Hash de venda e de passagem 
+_Descriçao: O sistema deve ser capaz de gerar uma passagem para cada lugar no voo_
+
+Realizar Check-in
 --------
 _Descrição: O sistema deve permitir que o cliente possa realizar o check-in virtualmente_
 
-Cadastro cliente
+Cadastrar cliente
 ----------------
 _Descrição: O cliente deve realizar um cadastro no banco de dados ANTES de efetuar uma COMPRA_
 
-Consulta de voos
+Consultar voos
 ----------------
-_Descrição: O cliente deve poder consultar informações de voo, como: Horários, rotas, assentos disponiveis... etc_
+_Descrição: Deve ser possivel ao cliente e a empresa aerea consultar informações de voo, como: Horários, rotas, assentos disponiveis... etc_
 
-###removido _Realizar pagamento
-------------------
-Descrição: O cliente deve realizar o pagamento_
+###_removido Realizar pagamento Descrição: O cliente deve realizar o pagamento_
 
 
