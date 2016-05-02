@@ -62,7 +62,7 @@
 			CodeGeneration
 		</plugin>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Mon Apr 25 20:10:19 BRT 2016'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Mon May 02 20:13:18 BRT 2016'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -213,7 +213,7 @@
           </UML:Include.base>
         </UML:Include>
         <UML:UseCase xmi.id = '-84-16-0--110--7e4af5e6:153bf8c8d93:-8000:0000000000000A73'
-          name = 'pesquisar rotas' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          name = 'pesquisar voos' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
           isAbstract = 'false'>
           <UML:GeneralizableElement.generalization>
             <UML:Generalization xmi.idref = '-84-16-0--110--7e4af5e6:153bf8c8d93:-8000:0000000000000A90'/>
@@ -1098,7 +1098,7 @@
       justification="Center"
     >CRUD passagens</text>
     <group name="Fig5.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[778, 285, 123, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[782, 285, 115, 0]"
          href="127-0-1-1--55bf4948:1539b4aa570:-8000:000000000000086B"
          fill="0"
          fillcolor="white"
@@ -1110,9 +1110,9 @@
       </private>
       
       <rectangle name="Fig5.2.0"
-        x="778"
+        x="782"
         y="285"
-        width="123"
+        width="115"
         height="0"
         fill="0"
         fillcolor="white"
@@ -1349,9 +1349,9 @@
       strokecolor="black"
     />
     <text name="Fig9.1"
-      x="618"
+      x="620"
       y="523"
-      width="107"
+      width="103"
       height="22"
       fill="0"
       fillcolor="white"
@@ -1363,7 +1363,7 @@
       bold="false"
       textsize="12"
       justification="Center"
-    >pesquisar rotas</text>
+    >pesquisar voos</text>
     <group name="Fig9.2"
          description="org.argouml.uml.diagram.ui.FigStereotypesGroup[618, 523, 107, 0]"
          href="-84-16-0--110--7e4af5e6:153bf8c8d93:-8000:0000000000000A73"
@@ -1824,7 +1824,7 @@
       justification="Center"
     >CRUD cliente</text>
     <group name="Fig15.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[35, 18, 96, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[39, 18, 88, 0]"
          href="-84-16-0--110--7e4af5e6:153bf8c8d93:-8000:0000000000000A8A"
          fill="0"
          fillcolor="white"
@@ -1836,9 +1836,9 @@
       </private>
       
       <rectangle name="Fig15.2.0"
-        x="35"
+        x="39"
         y="18"
-        width="96"
+        width="88"
         height="0"
         fill="0"
         fillcolor="white"
@@ -2148,7 +2148,7 @@
       justification="Center"
     >CRUD conexão</text>
     <group name="Fig20.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[714, 107, 107, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[718, 107, 99, 0]"
          href="-84-16-0--110--7e4af5e6:153bf8c8d93:-8000:0000000000000A9E"
          fill="0"
          fillcolor="white"
@@ -2160,9 +2160,9 @@
       </private>
       
       <rectangle name="Fig20.2.0"
-        x="714"
+        x="718"
         y="107"
-        width="107"
+        width="99"
         height="0"
         fill="0"
         fillcolor="white"
