@@ -63,10 +63,10 @@ Fluxo básico
 
 Fluxo Alternarivo
 -----------------
-** * Caso os voos já tivessem sido adicionados**
+**Caso os voos já tivessem sido adicionados**
 1. Continuar a partir do fluxo básico item 6.
 
-** * Caso a verificação do fluxo básico item 9 não tenha sido OK** 
+**Caso a verificação do fluxo básico item 9 não tenha sido OK** 
 1. O sistema deve exibir o erro que foi dado ao usuário e exigir modificação, porém a opção de continuar com o erro deve ser exibida.
 1.1 Caso o usuario pretenda continuar com o erro, o sistema deve requisitar a senha do usuário para efetuar o cadastro com o conflito.
 
