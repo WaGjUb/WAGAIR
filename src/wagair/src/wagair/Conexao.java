@@ -72,4 +72,9 @@ public class Conexao {
                         return(false);
                     }
     }
+       
+       float getPreco()
+       {
+           return(this.preco);
+       }
 }

@@ -49,5 +49,15 @@ public class Item {
                     }
     
     }
+       
+       float getValorTotal()
+       {
+           float total = 0;
+           for (Conexao con : conexao)
+           {
+               total = total + con.getPreco();
+           }
+           return(total);
+       }
     
 }
