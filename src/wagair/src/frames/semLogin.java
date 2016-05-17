@@ -27,19 +27,38 @@ public class semLogin extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        criarCadastroButton = new javax.swing.JButton();
+        fazerLoginButton = new javax.swing.JButton();
 
-        jButton2.setText("jButton2");
-        add(jButton2);
+        criarCadastroButton.setText("Cadastrar");
 
-        jButton1.setText("jButton1");
-        add(jButton1);
+        fazerLoginButton.setText("Fazer Login");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(criarCadastroButton)
+                .addGap(18, 18, 18)
+                .addComponent(fazerLoginButton)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(criarCadastroButton)
+                    .addComponent(fazerLoginButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton criarCadastroButton;
+    private javax.swing.JButton fazerLoginButton;
     // End of variables declaration//GEN-END:variables
 }
