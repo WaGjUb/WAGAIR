@@ -16,7 +16,7 @@ import javax.swing.JFrame;
  */
 public class mainFrame extends javax.swing.JFrame {
     int anoInicial = 2010;
-    Container c=getContentPane();
+   // Container c=getContentPane();
     /**
      * Creates new form mainFrame
      */
@@ -26,7 +26,7 @@ public class mainFrame extends javax.swing.JFrame {
 
 
     
-    semLogin semlogin = new semLogin();
+ //   semLogin semlogin = new semLogin();
     
     public mainFrame() {
             arrayAnos.add("Ano");
@@ -36,12 +36,13 @@ public class mainFrame extends javax.swing.JFrame {
         initComponents();
   //      c.repaint();
    //     c.removeAll();
-    c.repaint();
-  //  semlogin.setBounds(200,2,500,500);
+  //  c.repaint();
+//    semlogin.setBounds(150,50,300,300);
   
-   c.add(semlogin);
-   semlogin.setVisible(true);
-
+ //  c.add(semlogin);
+  // semlogin.setVisible(true);
+   
+semLogin1.setVisible(false);
     }
 
     /**
@@ -59,6 +60,9 @@ public class mainFrame extends javax.swing.JFrame {
         diaComboBox = new javax.swing.JComboBox<>();
         mesComboBox = new javax.swing.JComboBox<>();
         anoComboBox = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        comLogin1 = new frames.comLogin();
+        semLogin1 = new frames.semLogin();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,38 +83,46 @@ public class mainFrame extends javax.swing.JFrame {
 
         anoComboBox.setModel(new javax.swing.DefaultComboBoxModel(arrayAnos.toArray()));
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel1.setAlignmentX(0.0F);
+        jPanel1.setAlignmentY(0.0F);
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 5);
+        flowLayout1.setAlignOnBaseline(true);
+        jPanel1.setLayout(flowLayout1);
+
+        comLogin1.setAlignmentX(0.0F);
+        jPanel1.add(comLogin1);
+        jPanel1.add(semLogin1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(origemTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(destinoTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(52, 52, 52))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(diaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(mesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(anoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(pesquisarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(80, 80, 80))))
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(destinoTextField)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(diaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(mesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(anoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(pesquisarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(origemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
-                .addComponent(origemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(origemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(destinoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -119,7 +131,7 @@ public class mainFrame extends javax.swing.JFrame {
                     .addComponent(anoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(pesquisarButton)
-                .addGap(54, 54, 54))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -166,10 +178,13 @@ public class mainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> anoComboBox;
+    private frames.comLogin comLogin1;
     private javax.swing.JTextField destinoTextField;
     private javax.swing.JComboBox<String> diaComboBox;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<String> mesComboBox;
     private javax.swing.JTextField origemTextField;
     private javax.swing.JButton pesquisarButton;
+    private frames.semLogin semLogin1;
     // End of variables declaration//GEN-END:variables
 }

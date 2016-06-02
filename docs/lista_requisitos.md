@@ -10,7 +10,7 @@ _Descrição: O sistema deve garantir que não exista vendas fantasmas e que as 
 
 Cadastrar conexão de voos
 -----------------
-_Descrição: A empresa deve cadastrar conexões caso haja (o cliente deve poder escolher o assento em todos os voos)_
+	_Descrição: A empresa deve cadastrar conexões caso haja, aqui devemos selecionar a quuantidade de passagens de cada voo que há a conexão, por exemplo: há um voo com 100 passagens de são paulo ao rio de janeiro e outro voo do rio de janeiro com 150 passagens de para brasilia. Podemos entao cadastrar uma conexão em rio de janeiro entre são paulo e brasilia com uma quantidade de no maximo 100 passagens e ainda sobraria 50 passagens de voo direto com saida inicial no rio de janeiro. OBS: O cliente deve poder escolher o assento em todos os voos_
 
 Gerar passagens
 ------------
