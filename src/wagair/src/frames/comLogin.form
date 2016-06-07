@@ -46,6 +46,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Nome do usu&#xe1;rio"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="nomeLabelMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

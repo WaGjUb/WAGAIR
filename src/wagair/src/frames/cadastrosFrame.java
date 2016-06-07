@@ -72,7 +72,9 @@ public class cadastrosFrame extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jSpinner4 = new javax.swing.JSpinner();
-        jButton4 = new javax.swing.JButton();
+        cadastrarConexaoButton = new javax.swing.JButton();
+        precoLabel = new javax.swing.JLabel();
+        precoTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -387,7 +389,9 @@ public class cadastrosFrame extends javax.swing.JFrame {
 
         jLabel14.setText("Qtd:");
 
-        jButton4.setText("Cadastrar Conexão");
+        cadastrarConexaoButton.setText("Cadastrar Conexão");
+
+        precoLabel.setText("Preço:");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -409,8 +413,14 @@ public class cadastrosFrame extends javax.swing.JFrame {
                         .addComponent(jSpinner4))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                         .addGap(0, 14, Short.MAX_VALUE)
-                        .addComponent(jButton4)
+                        .addComponent(cadastrarConexaoButton)
                         .addGap(215, 215, 215))))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(precoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(precoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,8 +433,12 @@ public class cadastrosFrame extends javax.swing.JFrame {
                     .addComponent(jLabel13)
                     .addComponent(jLabel14)
                     .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(precoLabel)
+                    .addComponent(precoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addComponent(cadastrarConexaoButton)
                 .addGap(43, 43, 43))
         );
 
@@ -512,6 +526,7 @@ public class cadastrosFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarButton;
+    private javax.swing.JButton cadastrarConexaoButton;
     private javax.swing.JLabel capacidadeLabel;
     private javax.swing.JTextField capacidadeTextField;
     private javax.swing.JLabel fabricanteLabel;
@@ -519,7 +534,6 @@ public class cadastrosFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -557,5 +571,7 @@ public class cadastrosFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel modeloLabel;
     private javax.swing.JTextField modeloTextField;
+    private javax.swing.JLabel precoLabel;
+    private javax.swing.JTextField precoTextField;
     // End of variables declaration//GEN-END:variables
 }

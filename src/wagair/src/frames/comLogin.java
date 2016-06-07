@@ -5,6 +5,8 @@
  */
 package frames;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author a1625381
@@ -33,6 +35,11 @@ public class comLogin extends javax.swing.JPanel {
         olaLabel.setText("Olá,");
 
         nomeLabel.setText("Nome do usuário");
+        nomeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nomeLabelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -53,6 +60,12 @@ public class comLogin extends javax.swing.JPanel {
                     .addComponent(nomeLabel)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void nomeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomeLabelMouseClicked
+        // TODO add your handling code here:
+                              compraFrame panel = new compraFrame();
+        panel.setVisible(true);
+    }//GEN-LAST:event_nomeLabelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

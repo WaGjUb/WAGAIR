@@ -12,18 +12,19 @@ import java.sql.*;
  * @author a1625381
  */
 public class JDBCwagair {
-    
-    private Connection myConn;
+    String dbURL;
+    String user;
+    String pass;
     
     JDBCwagair() throws SQLException, ClassNotFoundException {
-
+         
         //Get Connection
         Class.forName("com.mysql.jdbc.Driver");
 
-        String dbURL = "jdbc:mysql://localhost:3306/wagair";
-        String user = "root";
-        String pass = "";
-        this.myConn = DriverManager.getConnection(dbURL, user, pass);
+        this.dbURL = "jdbc:mysql://localhost:3306/wagair";
+        this.user = "root";
+        this.pass = "";
+        
 /*
         Statement myStmt = myConn.createStatement();
 
@@ -36,9 +37,10 @@ public class JDBCwagair {
 
     }
     
-    Connection getConection()
+    Connection getConection() throws SQLException
     {
-        return (this.myConn);
+        Connection myConn = DriverManager.getConnection(this.dbURL, this.user, this.pass);
+        return (myConn);
     
     }
     
