@@ -10,6 +10,7 @@ package wagair;
  * @author a1625381
  */
 public class Endereco {
+   private int id = -1;
    private String rua;
    private int numero;
    private String CEP;
@@ -23,4 +24,16 @@ public class Endereco {
      this.complemento = complemento;
     }
     
+    public int getID() throws Exception
+    {
+        if (this.id == -1)
+        {
+            throw new Exception("Erro, id do endereco inválido (-1)");
+        }
+        else
+        {
+           return this.id;
+        }
+    }
+            
 }

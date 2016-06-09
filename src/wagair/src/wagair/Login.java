@@ -12,10 +12,24 @@ package wagair;
 public class Login {
     String usuario;
     String senha;
-        
+    int id = -1;
+    
     public Login(String usuario, String senha)
     {
       this.usuario = usuario;
       this.senha = senha;
+    }
+    
+    
+    
+    public int getID() throws Exception
+    {   if (this.id == -1)
+        {
+            throw new Exception("Erro, id do login inválido (-1)");
+        }
+        else
+    {
+        return this.id;
+    }
     }
 }

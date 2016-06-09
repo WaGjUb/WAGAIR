@@ -12,8 +12,8 @@ package wagair;
 public class Vendedor extends Pessoa{
     
     String CNPJ;
-    public Vendedor(String nome, String CNPJ, String telefone, String celular, Endereco endereco, Login login) {
-        super(nome, telefone, celular, endereco, login);
+    public Vendedor(String nome, String sobrenome, String CNPJ, String telefone, String celular, Endereco endereco, Login login) {
+        super(nome, sobrenome, telefone, celular, endereco, login);
         this.CNPJ = CNPJ;
     }
     

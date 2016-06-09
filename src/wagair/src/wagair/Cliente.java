@@ -11,8 +11,8 @@ package wagair;
  */
 public class Cliente extends Pessoa{
        String CPF;
-    public Cliente(String nome, String CPF, String telefone, String celular, Endereco endereco, Login login) {
-        super(nome, telefone, celular, endereco, login);
+    public Cliente(String nome, String sobrenome, String CPF, String telefone, String celular, Endereco endereco, Login login) {
+        super(nome, sobrenome, telefone, celular, endereco, login);
         this.CPF = CPF;
     }
     
