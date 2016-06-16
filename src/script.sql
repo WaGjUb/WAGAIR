@@ -1,5 +1,3 @@
-create database IF NOT EXISTS wagair;
-
 use wagair;
 
 create table IF NOT EXISTS endereco

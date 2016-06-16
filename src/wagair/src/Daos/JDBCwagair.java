@@ -37,13 +37,35 @@ public class JDBCwagair {
 
     }
     
-    Connection getConection() throws SQLException
+    Connection getConnection() throws SQLException
     {
         Connection myConn = DriverManager.getConnection(this.dbURL, this.user, this.pass);
         return (myConn);
     
     }
     
+    void closeConnection(Connection c, ResultSet rs, PreparedStatement ps){
+    
+
+        
+        if (rs != null){
+            try {
+                rs.close();
+            } catch (SQLException e){}
+        }
+        
+         if (ps != null){
+            try {
+                ps.close();
+            } catch (SQLException e){}
+        }
+              
+        if (c != null){
+            try {
+                c.close();
+            } catch (SQLException e){}
+        }         
+    }
     }
     
 

@@ -5,6 +5,8 @@
  */
 package wagair;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author a1625381
@@ -20,7 +22,15 @@ public class Login {
       this.senha = senha;
     }
     
+    public String getUsuario() throws Exception
+    {
+      return(this.usuario)  ;
+    }
     
+    public String getSenha() throws Exception
+    {
+        return(this.senha);
+    }
     
     public int getID() throws Exception
     {   if (this.id == -1)
@@ -31,5 +41,20 @@ public class Login {
     {
         return this.id;
     }
+    }
+ 
+    public boolean setID(int id) throws Exception
+    {   
+        
+           try{
+                this.id = id;
+                return true;
+            }
+               catch (Exception e)
+               {
+                   JOptionPane.showMessageDialog(null, "erro ao setar o id da pessoa");
+                   return false;
+               }
+    
     }
 }

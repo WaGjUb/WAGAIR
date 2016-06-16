@@ -22,8 +22,8 @@ import wagair.Pessoa;
 
 public class DaoPessoa {
     
-    JDBCwagair c;
-    private Pessoa p;
+    private JDBCwagair c;
+    private Pessoa pess;
     private int ID;
     private String nome;
     private String sobrenome;
@@ -33,9 +33,9 @@ public class DaoPessoa {
     private int loginID;
     
     
-    DaoPessoa(Pessoa p) throws SQLException, ClassNotFoundException{
+    DaoPessoa(Pessoa p) throws SQLException, ClassNotFoundException, Exception{
             this.c = new JDBCwagair();
-            
+            this.pess = p;
             this.nome = p.getNome();
             this.sobrenome = p.getSobrenome();
             this.telefone = p.getTelefone();
@@ -45,11 +45,16 @@ public class DaoPessoa {
 
                       
     }
+    //insere a pessoa e retorna o ID gerado
+    public Pessoa getPessoa()
+    {
+        return(this.pess);
+    }
     
-    void insertPessoa() throws SQLException
+    int insertPessoa() throws SQLException
     {
         
-        Connection myConn = this.c.getConection();
+        Connection myConn = this.c.getConnection();
         // Statement myStmt = myConn.createStatement();
         
          String sql = "INSERT INTO pessoa "+
@@ -67,11 +72,11 @@ public class DaoPessoa {
          ResultSet rs = stmt.getGeneratedKeys();
          rs.next();
          this.ID = rs.getInt(1);
-         this.p.setID(this.ID);
+         this.pess.setID(this.ID);
+         c.closeConnection(myConn, rs, stmt);
+         return (this.ID);
          
-         
-         
-         
+         //ResultSet rs = preparedStatement.executeQuery();
        // myStmt.executeUpdate("insert * from valet");
         
     }

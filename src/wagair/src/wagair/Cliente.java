@@ -10,13 +10,19 @@ package wagair;
  * @author a1625381
  */
 public class Cliente extends Pessoa{
-       String CPF;
+       private String CPF;
+   
+       
     public Cliente(String nome, String sobrenome, String CPF, String telefone, String celular, Endereco endereco, Login login) {
-        super(nome, sobrenome, telefone, celular, endereco, login);
+        super(nome, sobrenome, telefone, celular, endereco, login); //seta as propriedades do cliente
         this.CPF = CPF;
     }
     
+    public String getCPF(){
 
+            return this.CPF;
+  
+    }
     
     
 }

@@ -17,5 +17,10 @@ public class Vendedor extends Pessoa{
         this.CNPJ = CNPJ;
     }
     
+        String getCNPJ(){
+
+            return this.CNPJ;
+  
+    }
     
 }
