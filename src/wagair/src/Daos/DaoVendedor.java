@@ -10,54 +10,50 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import wagair.Cliente;
 import wagair.Pessoa;
+import wagair.Vendedor;
 
 /**
  *
  * @author a1625381
  */
-public class DaoCliente extends DaoPessoa {
+public class DaoVendedor extends DaoPessoa{
 private JDBCwagair c;
-private String CPF;
-private Cliente cliente;
+private String CNPJ;
+private Vendedor vendedor;
 
-    public DaoCliente(Cliente cli) throws SQLException, ClassNotFoundException, Exception {
-        super(cli);
+    
+    public DaoVendedor(Vendedor vend) throws SQLException, ClassNotFoundException, Exception {
+        super(vend);
         
-        this.CPF = cli.getCPF();
-        this.cliente = cli;
+        this.CNPJ = vend.getCNPJ();
+        this.vendedor = vend;
     }
     
-   public int insertCliente() throws SQLException
+    public int insertVendedor() throws SQLException
     {
-        int IDCLIENTE;
+        int IDVENDEDOR;
         int idPessoa = this.insertPessoa();
         Connection myConn = this.c.getConnection();
         // Statement myStmt = myConn.createStatement();
         
          String sql = "INSERT INTO cliente "+
-                 "(pessoaID, CPF) "+
+                 "(pessoaID, CNPJ) "+
                    "values (?, ?)";
          PreparedStatement stmt = myConn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
          stmt.setInt(1, idPessoa);
-         stmt.setString(2, this.CPF);
+         stmt.setString(2, this.CNPJ);
          
          stmt.executeUpdate();
          ResultSet rs = stmt.getGeneratedKeys();
          rs.next();
-         IDCLIENTE = rs.getInt(1);
+         IDVENDEDOR = rs.getInt(1);
          c.closeConnection(myConn, rs, stmt);
-         return (IDCLIENTE);
+         return (IDVENDEDOR);
          
          //ResultSet rs = preparedStatement.executeQuery();
        // myStmt.executeUpdate("insert * from valet");
         
     }
     
-    
-    
-    
-    
-
 }

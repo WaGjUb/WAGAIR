@@ -10,11 +10,11 @@ package wagair;
  * @author a1625381
  */
 public class Aviao {
-    
+    private int id = -1;
     private String fabricante;
     private String modelo;
     private int capacidade;
-    private CompanhiaAerea companhia;
+    private CompanhiaAerea companhia = null;
     
     Aviao(String fabricante, String modelo, int capacidade, CompanhiaAerea companhia)
     {
@@ -31,5 +31,20 @@ public class Aviao {
         this.capacidade = capacidade;             
     }
     
-    
+            public String getFabricante()
+            {
+                return this.fabricante;
+            }
+            public String getModelo()
+            {
+                return this.modelo;
+            }
+            public int getCapacidade()
+            {
+                return this.capacidade;
+            }
+            public CompanhiaAerea getComp()
+            {
+                return this.companhia;
+            }
 }

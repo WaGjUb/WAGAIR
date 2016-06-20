@@ -1,5 +1,3 @@
-use wagair;
-
 create table IF NOT EXISTS endereco
 (
  id integer NOT NULL AUTO_INCREMENT,
@@ -47,7 +45,7 @@ create table IF NOT EXISTS vendedor
 ( 
  id integer NOT NULL AUTO_INCREMENT,
  pessoaID integer,
- CPF varchar(11),
+ CNPJ varchar(20),
  primary key (id),
  foreign key (pessoaID) references pessoa(id)
 );

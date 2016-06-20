@@ -1,4 +1,11 @@
-Inserções:
-1- login
-2 - Cliente ou vendedor <- CPF ou CNPJ... isso gere pessoa
+2 - endereco
+3 - Cliente ou vendedor <- CPF ou CNPJ... isso gere pessoa
 
+1 - Companhia aerea
+2 - Aviao
+
+nullcorrect:
+- Endereco complemento E,DIE
+- Aviao companhiaAerea A,DIA
+
+TODO: continuar Dao Rota

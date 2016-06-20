@@ -10,54 +10,47 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import wagair.Cliente;
-import wagair.Pessoa;
+import wagair.CompanhiaAerea;
 
 /**
  *
  * @author a1625381
  */
-public class DaoCliente extends DaoPessoa {
-private JDBCwagair c;
-private String CPF;
-private Cliente cliente;
-
-    public DaoCliente(Cliente cli) throws SQLException, ClassNotFoundException, Exception {
-        super(cli);
-        
-        this.CPF = cli.getCPF();
-        this.cliente = cli;
+public class DaoCompanhiaAerea {
+    private JDBCwagair c;
+    private CompanhiaAerea comp;
+    private String nome;
+    private int ID;
+    
+    DaoCompanhiaAerea(CompanhiaAerea co) throws SQLException, ClassNotFoundException, Exception{
+            this.c = new JDBCwagair();
+            this.comp = co;
+            this.nome = co.getNome();
     }
     
-   public int insertCliente() throws SQLException
+    int insertCompanhiaAerea() throws SQLException
     {
-        int IDCLIENTE;
-        int idPessoa = this.insertPessoa();
+        
         Connection myConn = this.c.getConnection();
         // Statement myStmt = myConn.createStatement();
         
-         String sql = "INSERT INTO cliente "+
-                 "(pessoaID, CPF) "+
-                   "values (?, ?)";
+         String sql = "INSERT INTO companhia_aerea "+
+                 "(nome) "+
+                   "values (?)";
          PreparedStatement stmt = myConn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-         stmt.setInt(1, idPessoa);
-         stmt.setString(2, this.CPF);
+         stmt.setString(1, this.nome);
+
          
          stmt.executeUpdate();
          ResultSet rs = stmt.getGeneratedKeys();
          rs.next();
-         IDCLIENTE = rs.getInt(1);
+         this.ID = rs.getInt(1);
+         this.comp.setID(this.ID);
          c.closeConnection(myConn, rs, stmt);
-         return (IDCLIENTE);
+         return (this.ID);
          
          //ResultSet rs = preparedStatement.executeQuery();
        // myStmt.executeUpdate("insert * from valet");
         
     }
-    
-    
-    
-    
-    
-
 }

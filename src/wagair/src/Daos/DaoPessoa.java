@@ -10,8 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import wagair.Endereco;
-import wagair.Login;
 import wagair.Pessoa;
 
 /**
@@ -45,12 +43,12 @@ public class DaoPessoa {
 
                       
     }
-    //insere a pessoa e retorna o ID gerado
+   //fere o OO a função abaixo
     public Pessoa getPessoa()
     {
         return(this.pess);
     }
-    
+     //insere a pessoa e retorna o ID gerado
     int insertPessoa() throws SQLException
     {
         

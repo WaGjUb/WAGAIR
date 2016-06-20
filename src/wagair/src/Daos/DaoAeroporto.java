@@ -10,54 +10,52 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import wagair.Cliente;
-import wagair.Pessoa;
+import wagair.Aeroporto;
 
 /**
  *
  * @author a1625381
  */
-public class DaoCliente extends DaoPessoa {
-private JDBCwagair c;
-private String CPF;
-private Cliente cliente;
-
-    public DaoCliente(Cliente cli) throws SQLException, ClassNotFoundException, Exception {
-        super(cli);
-        
-        this.CPF = cli.getCPF();
-        this.cliente = cli;
+public class DaoAeroporto {
+    private JDBCwagair c;
+    private Aeroporto aero;
+    private String nome;
+    private String cidade;
+    private String pais;
+    private int ID;
+    DaoAeroporto(Aeroporto a) throws SQLException, ClassNotFoundException, Exception{
+            this.c = new JDBCwagair();
+            this.aero = a;
+            this.nome = a.getNome();
+            this.cidade = a.getCidade();
+            this.pais = a.getPais();
     }
     
-   public int insertCliente() throws SQLException
+    int insertAeroporto() throws SQLException
     {
-        int IDCLIENTE;
-        int idPessoa = this.insertPessoa();
+        
         Connection myConn = this.c.getConnection();
         // Statement myStmt = myConn.createStatement();
         
-         String sql = "INSERT INTO cliente "+
-                 "(pessoaID, CPF) "+
-                   "values (?, ?)";
+         String sql = "INSERT INTO aeroporto "+
+                 "(nome, cidade, pais) "+
+                   "values (?, ?, ?)";
          PreparedStatement stmt = myConn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-         stmt.setInt(1, idPessoa);
-         stmt.setString(2, this.CPF);
+         stmt.setString(1, this.nome);
+         stmt.setString(2, this.cidade);
+         stmt.setString(3, this.pais);
+
          
          stmt.executeUpdate();
          ResultSet rs = stmt.getGeneratedKeys();
          rs.next();
-         IDCLIENTE = rs.getInt(1);
+         this.ID = rs.getInt(1);
+         //this.aero.setID(this.ID);
          c.closeConnection(myConn, rs, stmt);
-         return (IDCLIENTE);
+         return (this.ID);
          
          //ResultSet rs = preparedStatement.executeQuery();
        // myStmt.executeUpdate("insert * from valet");
         
     }
-    
-    
-    
-    
-    
-
 }

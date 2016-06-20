@@ -13,6 +13,7 @@ public class Aeroporto {
     String nome;
     String cidade;
     String pais;
+    int id = -1;
     
     Aeroporto(String nome, String cidade, String pais)
     {
@@ -20,4 +21,19 @@ public class Aeroporto {
         this.cidade = cidade;
         this.pais = pais;
     }
+    
+            public String getNome()
+            {
+                return this.nome;
+            }
+            
+            public String getCidade()
+            {
+                return this.cidade;
+            }
+            
+            public String getPais()
+            {
+                return this.pais;
+            }
 }
