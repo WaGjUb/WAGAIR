@@ -23,7 +23,7 @@ public class DaoAeroporto {
     private String cidade;
     private String pais;
     private int ID;
-    DaoAeroporto(Aeroporto a) throws SQLException, ClassNotFoundException, Exception{
+   public DaoAeroporto(Aeroporto a) throws SQLException, ClassNotFoundException, Exception{
             this.c = new JDBCwagair();
             this.aero = a;
             this.nome = a.getNome();

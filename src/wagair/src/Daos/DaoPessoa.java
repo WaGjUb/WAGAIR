@@ -31,7 +31,7 @@ public class DaoPessoa {
     private int loginID;
     
     
-    DaoPessoa(Pessoa p) throws SQLException, ClassNotFoundException, Exception{
+    public DaoPessoa(Pessoa p) throws SQLException, ClassNotFoundException, Exception{
             this.c = new JDBCwagair();
             this.pess = p;
             this.nome = p.getNome();

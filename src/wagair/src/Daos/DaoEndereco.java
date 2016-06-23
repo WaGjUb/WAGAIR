@@ -28,7 +28,7 @@ public class DaoEndereco {
 
     
     
-    DaoEndereco(Endereco e) throws SQLException, ClassNotFoundException, Exception{
+   public DaoEndereco(Endereco e) throws SQLException, ClassNotFoundException, Exception{
             this.c = new JDBCwagair();
             this.end = e;
             this.rua = e.getRua();

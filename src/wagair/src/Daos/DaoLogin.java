@@ -25,7 +25,7 @@ public class DaoLogin {
     private int ID;
     private Login log;
 
-    DaoLogin(Login l) throws SQLException, ClassNotFoundException, Exception{
+   public DaoLogin(Login l) throws SQLException, ClassNotFoundException, Exception{
             this.c = new JDBCwagair();
             
             this.usuario = l.getUsuario();

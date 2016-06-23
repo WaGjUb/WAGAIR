@@ -5,6 +5,7 @@
  */
 package wagair;
 
+import Daos.DaoEndereco;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -18,7 +19,7 @@ public class main {
      * @param args the command line arguments
      */
    
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, Exception {
         // TODO code application logic here
         
   
@@ -27,6 +28,10 @@ public class main {
     Date aux = mdata.getTime();
     java.sql.Timestamp  sql = new java.sql.Timestamp(aux.getTime());
     System.out.println(sql);
+    
+    Endereco e = new Endereco("rua teste", 42, "01518010", "complementinho");
+    //DaoEndereco d = new DaoEndereco(e);
+   // d.insertEndereco();
 
     }
 }

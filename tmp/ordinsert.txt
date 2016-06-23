@@ -1,14 +1,18 @@
 2 - endereco
 3 - Cliente ou vendedor <- CPF ou CNPJ... isso gere pessoa
 
-1 - Companhia aerea
+[(1 - Companhia aerea
 2 - Aviao
 
 1- aeroporto
-2- rota
+2- rota)
+]
+3- voo
+
+1-voo
+2- passagem
 
 nullcorrect:
 - Endereco complemento E,DIE
 - Aviao companhiaAerea A,DIA
 
-TODO: continuar Dao Rota

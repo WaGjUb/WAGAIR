@@ -10,42 +10,45 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import wagair.CompanhiaAerea;
+import wagair.Passagem;
 
 /**
  *
- * @author a1625381
+ * @author wagjub
  */
-public class DaoCompanhiaAerea {
+public class DaoPassagem {
     private JDBCwagair c;
-    private CompanhiaAerea comp;
-    private String nome;
+    private Passagem pas;
+    private int vooID;
+    private String numAssento;
     private int ID;
     
-   public DaoCompanhiaAerea(CompanhiaAerea co) throws SQLException, ClassNotFoundException, Exception{
+      public DaoPassagem(Passagem p) throws SQLException, ClassNotFoundException, Exception{
             this.c = new JDBCwagair();
-            this.comp = co;
-            this.nome = co.getNome();
+            this.pas = p;
+            this.vooID = p.getVoo().getID();
+            this.numAssento = p.getAssento();
     }
-    
-    int insertCompanhiaAerea() throws SQLException
+      
+          public int insertPassagem() throws SQLException
     {
         
         Connection myConn = this.c.getConnection();
         // Statement myStmt = myConn.createStatement();
         
-         String sql = "INSERT INTO companhia_aerea "+
-                 "(nome) "+
-                   "values (?)";
+         String sql = "INSERT INTO passagem "+
+                 "(numAssento, vooID) "+
+                   "values (?, ?)";
          PreparedStatement stmt = myConn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-         stmt.setString(1, this.nome);
+         stmt.setString(1, this.numAssento);
+         stmt.setInt(2, this.vooID);
 
          
          stmt.executeUpdate();
          ResultSet rs = stmt.getGeneratedKeys();
          rs.next();
          this.ID = rs.getInt(1);
-         this.comp.setID(this.ID);
+         this.pas.setID(this.ID);
          c.closeConnection(myConn, rs, stmt);
          return (this.ID);
          

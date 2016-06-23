@@ -23,7 +23,7 @@ public class DaoRota {
     private int idOrigem;
     private int ID;
     
-    DaoRota(Rota r) throws SQLException, ClassNotFoundException, Exception{
+   public DaoRota(Rota r) throws SQLException, ClassNotFoundException, Exception{
             this.c = new JDBCwagair();
             this.rota = r;
             this.idOrigem = r.getOrigem().getID();

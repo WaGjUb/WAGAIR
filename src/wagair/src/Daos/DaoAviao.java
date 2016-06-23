@@ -25,7 +25,7 @@ public class DaoAviao {
     private int idComp;
     private int ID;
     
-     DaoAviao(Aviao a) throws SQLException, ClassNotFoundException, Exception{
+    public DaoAviao(Aviao a) throws SQLException, ClassNotFoundException, Exception{
             this.c = new JDBCwagair();
             this.aviao = a;
             this.fabricante = a.getFabricante();
@@ -34,7 +34,7 @@ public class DaoAviao {
             this.idComp = a.getComp().getID();
     }
      
-     int insertAviao() throws SQLException
+    public int insertAviao() throws SQLException
     {
         
         Connection myConn = this.c.getConnection();

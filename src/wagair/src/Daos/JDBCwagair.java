@@ -16,7 +16,7 @@ public class JDBCwagair {
     String user;
     String pass;
     
-    JDBCwagair() throws SQLException, ClassNotFoundException {
+   public JDBCwagair() throws SQLException, ClassNotFoundException {
          
         //Get Connection
         Class.forName("com.mysql.jdbc.Driver");
@@ -37,14 +37,14 @@ public class JDBCwagair {
 
     }
     
-    Connection getConnection() throws SQLException
+    public Connection getConnection() throws SQLException
     {
         Connection myConn = DriverManager.getConnection(this.dbURL, this.user, this.pass);
         return (myConn);
     
     }
     
-    void closeConnection(Connection c, ResultSet rs, PreparedStatement ps){
+    public void closeConnection(Connection c, ResultSet rs, PreparedStatement ps){
     
 
         
