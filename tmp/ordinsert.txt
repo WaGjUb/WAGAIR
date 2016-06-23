@@ -4,6 +4,9 @@
 1 - Companhia aerea
 2 - Aviao
 
+1- aeroporto
+2- rota
+
 nullcorrect:
 - Endereco complemento E,DIE
 - Aviao companhiaAerea A,DIA

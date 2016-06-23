@@ -5,6 +5,8 @@
  */
 package wagair;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author a1625381
@@ -41,8 +43,16 @@ public class Rota {
         return this.destino;
     }
     
-    public void setID(int id)
-    {
-        this.id = id;
-    }
+public boolean setID(int id)
+        {
+            try{
+                this.id = id;
+                return true;
+            }
+               catch (Exception e)
+               {
+                   JOptionPane.showMessageDialog(null, "erro ao setar o id de rota");
+                   return false;
+               }
+        }
 }

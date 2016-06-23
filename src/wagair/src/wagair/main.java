@@ -5,6 +5,9 @@
  */
 package wagair;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author a1625381
@@ -18,6 +21,12 @@ public class main {
     public static void main(String[] args) {
         // TODO code application logic here
         
+  
+   Calendar mdata = Calendar.getInstance(); 
+    System.out.println(mdata.getTime());
+    Date aux = mdata.getTime();
+    java.sql.Timestamp  sql = new java.sql.Timestamp(aux.getTime());
+    System.out.println(sql);
 
     }
 }

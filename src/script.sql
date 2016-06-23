@@ -1,3 +1,6 @@
+create database IF NOT EXISTS wagair;
+use wagair;
+
 create table IF NOT EXISTS endereco
 (
  id integer NOT NULL AUTO_INCREMENT,
@@ -93,8 +96,8 @@ create table IF NOT EXISTS rota
 create table IF NOT EXISTS voo
 ( 
  id integer NOT NULL AUTO_INCREMENT,
- dataPartida datetime,
- dataChegada datetime,
+ dataPartida timestamp,
+ dataChegada timestamp,
  assentosLivres integer,
  rotaID integer,
  aviaoID integer,

@@ -23,7 +23,7 @@ public class JDBCwagair {
 
         this.dbURL = "jdbc:mysql://localhost:3306/wagair";
         this.user = "root";
-        this.pass = "";
+        this.pass = "wagjub";
         
 /*
         Statement myStmt = myConn.createStatement();

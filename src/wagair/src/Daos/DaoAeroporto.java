@@ -50,7 +50,7 @@ public class DaoAeroporto {
          ResultSet rs = stmt.getGeneratedKeys();
          rs.next();
          this.ID = rs.getInt(1);
-         //this.aero.setID(this.ID);
+         this.aero.setID(this.ID);
          c.closeConnection(myConn, rs, stmt);
          return (this.ID);
          

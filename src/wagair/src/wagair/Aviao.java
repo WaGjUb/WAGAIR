@@ -5,6 +5,8 @@
  */
 package wagair;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author a1625381
@@ -30,11 +32,27 @@ public class Aviao {
         this.modelo = modelo;
         this.capacidade = capacidade;             
     }
+    public boolean setID(int id)
+        {
+            try{
+                this.id = id;
+                return true;
+            }
+               catch (Exception e)
+               {
+                   JOptionPane.showMessageDialog(null, "erro ao setar o id do avião");
+                   return false;
+               }
+        }
     
             public String getFabricante()
             {
                 return this.fabricante;
             }
+
+    public int getID() {
+        return this.id;
+    }
             public String getModelo()
             {
                 return this.modelo;

@@ -47,14 +47,14 @@ public class DaoAviao {
          stmt.setInt(1, this.capacidade);
          stmt.setString(2, this.fabricante);
          stmt.setString(3, this.modelo);
-         stmt.setInt(3, this.idComp);
+         stmt.setInt(4, this.idComp);
 
          
          stmt.executeUpdate();
          ResultSet rs = stmt.getGeneratedKeys();
          rs.next();
          this.ID = rs.getInt(1);
-         //this.aero.setID(this.ID);
+         this.aviao.setID(this.ID);
          c.closeConnection(myConn, rs, stmt);
          return (this.ID);
          
