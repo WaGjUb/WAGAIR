@@ -6,13 +6,15 @@
 package wagair;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author a1625381
  */
 public class Conexao {
-    
+   
+   private int id;
    private float preco;
    private ArrayList<Passagem> passagem; 
     
@@ -32,8 +34,37 @@ public class Conexao {
     {
         this.passagem = passagem;
     }
+
+    public ArrayList<Passagem> getPassagem() {
+        return passagem;
+    }
        
-       boolean addPassagem (Passagem passagem)
+       
+       
+          public int getID() throws Exception
+            {
+                if (this.id == -1)
+                 {
+                      throw new Exception("Erro, id da conexão inválido (-1)");
+                 }
+                
+                 else
+                       return this.id;
+                 }
+          
+        public boolean setID(int id)
+        {
+            try{
+                this.id = id;
+                return true;
+            }
+               catch (Exception e)
+               {
+                   JOptionPane.showMessageDialog(null, "erro ao setar o id da conexão");
+                   return false;
+               }
+        }
+      public boolean addPassagem (Passagem passagem)
     {
         try
         {
@@ -47,7 +78,7 @@ public class Conexao {
     }
        
        
-        boolean removerPassagem (Passagem passagem)
+        public boolean removerPassagem (Passagem passagem)
     {
         try
         {
@@ -60,7 +91,7 @@ public class Conexao {
                     }
     }
         
-       boolean alterarPreco (float preco)
+      public boolean alterarPreco (float preco)
     {
         try
         {
@@ -73,7 +104,7 @@ public class Conexao {
                     }
     }
        
-       float getPreco()
+      public float getPreco()
        {
            return(this.preco);
        }

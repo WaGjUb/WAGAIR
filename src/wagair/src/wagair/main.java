@@ -29,9 +29,9 @@ public class main {
     java.sql.Timestamp  sql = new java.sql.Timestamp(aux.getTime());
     System.out.println(sql);
     
-    Endereco e = new Endereco("rua teste", 42, "01518010", "complementinho");
-    //DaoEndereco d = new DaoEndereco(e);
-   // d.insertEndereco();
+    Endereco e = new Endereco("rua teste dois", 18, "01625380");
+    DaoEndereco d = new DaoEndereco(e);
+    d.insertEndereco();
 
     }
 }
