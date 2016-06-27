@@ -5,6 +5,12 @@
  */
 package frames;
 
+import Daos.DaoLogin;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import wagair.Login;
+
 /**
  *
  * @author a1625381
@@ -14,8 +20,16 @@ public class loginFrame extends javax.swing.JFrame {
     /**
      * Creates new form loginFrame
      */
+     private mainFrame m;
+     
+     public void setMain(mainFrame mainframe)
+     {
+         m = mainframe;
+     }
     public loginFrame() {
         initComponents();
+
+
     }
 
     /**
@@ -32,15 +46,13 @@ public class loginFrame extends javax.swing.JFrame {
         loginTextField = new javax.swing.JTextField();
         senhaPasswordField = new javax.swing.JPasswordField();
         enviarButton = new javax.swing.JButton();
-        voltarButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         loginLabel.setText("Usuário:");
 
         senhaLabel.setText("Senha:");
 
-        loginTextField.setText("Usuário");
         loginTextField.setToolTipText("");
         loginTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -48,11 +60,12 @@ public class loginFrame extends javax.swing.JFrame {
             }
         });
 
-        senhaPasswordField.setText("aaaaaaaaa");
-
         enviarButton.setText("Enviar");
-
-        voltarButton.setText("Voltar");
+        enviarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enviarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,18 +74,15 @@ public class loginFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(loginLabel)
+                    .addComponent(senhaLabel))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(loginLabel)
-                            .addComponent(senhaLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(senhaPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(enviarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(voltarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(12, 12, 12)
+                        .addComponent(enviarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(senhaPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -86,11 +96,9 @@ public class loginFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(senhaPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(senhaLabel))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enviarButton)
-                    .addComponent(voltarButton))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(enviarButton)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -99,6 +107,37 @@ public class loginFrame extends javax.swing.JFrame {
     private void loginTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_loginTextFieldActionPerformed
+
+    private void enviarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarButtonActionPerformed
+        String usuario = loginTextField.getText();
+        String senha = senhaPasswordField.getText();
+        Login login = new Login(usuario, senha);
+        try {
+            DaoLogin dl = new DaoLogin(login);
+            Login cmp = dl.getloginByUser(usuario);
+            if (cmp == null)
+            {
+                JOptionPane.showMessageDialog(null, "Login não existe");
+            }
+            else
+            {
+                if (cmp.getSenha().equals(login.getSenha()))
+                {
+                    this.m.login(login);
+                }
+                else
+                {
+                    System.out.print(cmp.getSenha());
+                    System.out.print(login.getSenha());
+                    JOptionPane.showMessageDialog(null, "Erro, senha inválida");
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(loginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(loginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_enviarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,6 +180,5 @@ public class loginFrame extends javax.swing.JFrame {
     private javax.swing.JTextField loginTextField;
     private javax.swing.JLabel senhaLabel;
     private javax.swing.JPasswordField senhaPasswordField;
-    private javax.swing.JButton voltarButton;
     // End of variables declaration//GEN-END:variables
 }

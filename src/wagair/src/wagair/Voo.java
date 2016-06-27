@@ -27,7 +27,7 @@ public class Voo {
     private Aviao aviao;
     private int id = -1;
     
-     Voo(Calendar dataPartida, Calendar dataChegada, Aviao aviao, int assentosLivres, Rota rota)
+     public Voo(Calendar dataPartida, Calendar dataChegada, Aviao aviao, int assentosLivres, Rota rota)
      {         
            this.dataPartida = dataPartida;
            this.dataChegada = dataChegada;
@@ -35,6 +35,22 @@ public class Voo {
            this.rota = rota;
            this.aviao = aviao;
      }
+
+    public Calendar getDataPartida() {
+        return dataPartida;
+    }
+
+    public Calendar getDataChegada() {
+        return dataChegada;
+    }
+
+    public int getAssentosLivres() {
+        return assentosLivres;
+    }
+
+    public int getId() {
+        return id;
+    }
     
              public boolean setID(int id)
         {

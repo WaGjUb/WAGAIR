@@ -12,7 +12,16 @@
 1-voo
 2- passagem
 
-nullcorrect:
+1- cliente/vendedor
+2- negociacao
+
+1- conexão
+2- itens
+3- negociação
+
+
+* nullcorrect:
 - Endereco complemento E,DIE
 - Aviao companhiaAerea A,DIA
 
+* verificar antes de inserir

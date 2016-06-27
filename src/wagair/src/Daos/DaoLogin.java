@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import wagair.Aviao;
 import wagair.Login;
 
 /**
@@ -32,8 +33,44 @@ public class DaoLogin {
             this.senha = l.getSenha();           
             this.log = l;
     }
+   
+   public Login getloginByUser(String user) throws SQLException, ClassNotFoundException, Exception
+   {
+        
+        
+        Connection myConn = this.c.getConnection();     
+
+         String sql = "select * from login where usuario = ?";
+
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setString(1, user);
+                
+        ResultSet myRS = stmt.executeQuery();
+
+        if (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            String usuario = myRS.getString("usuario");
+            String senha = myRS.getString("senha");
+            
+            //try {
+            //    int companhiaID = myRS.getInt("companhiaID");
+              
+           // }
+           // catch(Exception e) {
+                Login aux = new Login(usuario, senha);
+           // }
+        //}
+            
+            aux.setID(id);          
+            return aux;
+        }
+       else
+        {
+            return null;
+        }
+   }
     
-    int insertLogin() throws SQLException, Exception
+    public int insertLogin() throws SQLException, Exception
     {
         
         Connection myConn = this.c.getConnection();

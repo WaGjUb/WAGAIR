@@ -16,27 +16,37 @@ public class Conexao {
    
    private int id;
    private float preco;
-   private ArrayList<Passagem> passagem; 
+   private ArrayList<Voo> voo; 
+   private int quantidade;
     
-    Conexao (float preco, ArrayList<Passagem> passagem)
+   public Conexao (float preco, ArrayList<Voo> voo, int quantidade)
     {
         this.preco = preco;
-        this.passagem = passagem;
+        this.voo = voo;
+        this.quantidade = quantidade;
     }
     
-        Conexao (float preco)
+       public Conexao (float preco)
     {
         this.preco = preco;
     }
         
    
-       Conexao (ArrayList<Passagem> passagem)
+      public Conexao (ArrayList<Voo> voo)
     {
-        this.passagem = passagem;
+        this.voo = voo;
     }
 
-    public ArrayList<Passagem> getPassagem() {
-        return passagem;
+    public ArrayList<Voo> getVoo() {
+        return voo;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
        
        
@@ -64,11 +74,11 @@ public class Conexao {
                    return false;
                }
         }
-      public boolean addPassagem (Passagem passagem)
+      public boolean addVoo (Voo voo)
     {
         try
         {
-            this.passagem.add(passagem);
+            this.voo.add(voo);
             return(true);
         }
             catch(Exception e)
@@ -78,11 +88,11 @@ public class Conexao {
     }
        
        
-        public boolean removerPassagem (Passagem passagem)
+        public boolean removerVoo (Voo voo) //cuidado ao usar
     {
         try
         {
-            this.passagem.remove(passagem);
+            this.voo.remove(voo);
             return(true);
         }
             catch(Exception e)

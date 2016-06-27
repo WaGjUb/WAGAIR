@@ -4,74 +4,65 @@
  * and open the template in the editor.
  */
 package Daos;
-import static java.lang.System.in;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import wagair.Aviao;
 import wagair.Conexao;
+import wagair.Item;
 import wagair.Passagem;
-import wagair.Voo;
 
 /**
  *
  * @author wagjub
  */
-public class DaoConexao {
+public class DaoItem {
     private JDBCwagair c;
-    private Conexao conexao;
-    private float preco;
-    private ArrayList<Voo> voos;
+    private Item item;
+    private ArrayList<Conexao> conexao;
     private int ID;
-    private int quantidade;
     
-        public DaoConexao(Conexao c) throws SQLException, ClassNotFoundException, Exception{
+    public DaoItem(Item i) throws SQLException, ClassNotFoundException, Exception{
             this.c = new JDBCwagair();
-            this.conexao = c;
-            this.preco = c.getPreco();
-            this.voos = c.getVoo();
-            this.quantidade = c.getQuantidade();
+            this.item = i;
+            this.conexao = i.getConexao();
     }
-        
-        
-        
-         public int insertConexao() throws SQLException, Exception
+    
+    public int insertItem() throws SQLException, Exception
     {
         
         Connection myConn = this.c.getConnection();
         // Statement myStmt = myConn.createStatement();
         
-         String sql = "INSERT INTO conexao "+
-                 "(preco, quantidade) "+
-                   "values (?, ?)";
+         String sql = "INSERT INTO itens "+
+                 "() "+
+                   "values ()";
          PreparedStatement stmt = myConn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-         stmt.setFloat(1, this.preco);
-         stmt.setInt(2, this.quantidade);
-         
+
 
          
          stmt.executeUpdate();
          ResultSet rs = stmt.getGeneratedKeys();
          rs.next();
          this.ID = rs.getInt(1);
-         this.conexao.setID(this.ID);
-
+         this.item.setID(this.ID);
          
-         sql = "INSERT INTO link_conexao "+
-                 "(ordenacao, conexaoID, vooID) "+
-                   "values (?, ?, ?)";
+         sql = "INSERT INTO link_item "+
+                 "(conexaoID, itensID) "+
+                   "values (?, ?)";
             stmt = myConn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            int i = 1;
-         for (Voo v : this.voos)
+          
+         for (Conexao con : this.conexao)
          {
-            stmt.setInt(1, i);
+            stmt.setInt(1, con.getID());
             stmt.setInt(2, this.ID);
-            stmt.setInt(3, v.getID());
             stmt.executeUpdate();
-            i++;
          }
+
          c.closeConnection(myConn, rs, stmt);
          return (this.ID);
          
@@ -79,4 +70,5 @@ public class DaoConexao {
        // myStmt.executeUpdate("insert * from valet");
         
     }
+    
 }

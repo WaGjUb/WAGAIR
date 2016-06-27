@@ -14,8 +14,11 @@ public class semLogin extends javax.swing.JPanel {
     /**
      * Creates new form semLogin
      */
-    public semLogin() {
+    private mainFrame m;
+    public semLogin(mainFrame mainframe) {
         initComponents();
+        this.m = mainframe;
+       
     }
 
     /**
@@ -36,11 +39,32 @@ public class semLogin extends javax.swing.JPanel {
         setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING, 10, 0));
 
         criarCadastroButton.setText("Cadastrar");
+        criarCadastroButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                criarCadastroButtonActionPerformed(evt);
+            }
+        });
         add(criarCadastroButton);
 
         fazerLoginButton.setText("Fazer Login");
+        fazerLoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fazerLoginButtonActionPerformed(evt);
+            }
+        });
         add(fazerLoginButton);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void criarCadastroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarCadastroButtonActionPerformed
+        CadastrarUsuarioFrame panel = new CadastrarUsuarioFrame();
+        panel.setVisible(true);
+    }//GEN-LAST:event_criarCadastroButtonActionPerformed
+
+    private void fazerLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fazerLoginButtonActionPerformed
+        loginFrame panel = new loginFrame();
+        panel.setMain(m);
+        panel.setVisible(true);
+    }//GEN-LAST:event_fazerLoginButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

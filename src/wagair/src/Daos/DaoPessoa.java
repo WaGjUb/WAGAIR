@@ -49,7 +49,7 @@ public class DaoPessoa {
         return(this.pess);
     }
      //insere a pessoa e retorna o ID gerado
-    int insertPessoa() throws SQLException
+    public int insertPessoa() throws SQLException
     {
         
         Connection myConn = this.c.getConnection();

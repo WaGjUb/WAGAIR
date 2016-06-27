@@ -7,7 +7,11 @@ package frames;
 
 import java.awt.Container;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import wagair.Login;
 
 
 /**
@@ -15,6 +19,20 @@ import javax.swing.JFrame;
  * @author a1625381
  */
 public class mainFrame extends javax.swing.JFrame {
+    
+        public void logout() {
+        comLogin1.setVisible(false);
+        semLogin1.setVisible(true);
+    }
+    
+        public void login(Login l) throws Exception {
+            
+        comLogin1.setVisible(true);
+        semLogin1.setVisible(false);
+        comLogin1.setLogin(l);
+        JOptionPane.showMessageDialog(null, "Login efetuado com sucesso");
+    }
+    
     int anoInicial = 2010;
    // Container c=getContentPane();
     /**
@@ -27,6 +45,8 @@ public class mainFrame extends javax.swing.JFrame {
 
     
  //   semLogin semlogin = new semLogin();
+
+    
     
     public mainFrame() {
             arrayAnos.add("Ano");
@@ -42,7 +62,7 @@ public class mainFrame extends javax.swing.JFrame {
  //  c.add(semlogin);
   // semlogin.setVisible(true);
    
-semLogin1.setVisible(false);
+logout();
     }
 
     /**
@@ -57,11 +77,11 @@ semLogin1.setVisible(false);
         origemTextField = new javax.swing.JTextField();
         pesquisarButton = new javax.swing.JButton();
         destinoTextField = new javax.swing.JTextField();
-        diaComboBox = new javax.swing.JComboBox<>();
-        mesComboBox = new javax.swing.JComboBox<>();
-        anoComboBox = new javax.swing.JComboBox<>();
+        diaComboBox = new javax.swing.JComboBox<String>();
+        mesComboBox = new javax.swing.JComboBox<String>();
+        anoComboBox = new javax.swing.JComboBox<String>();
         jPanel1 = new javax.swing.JPanel();
-        semLogin1 = new frames.semLogin();
+        semLogin1 = new frames.semLogin(this);
         comLogin1 = new frames.comLogin();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -72,16 +92,21 @@ semLogin1.setVisible(false);
 
         destinoTextField.setText("Destino");
 
-        diaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        diaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dia", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         diaComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 diaComboBoxActionPerformed(evt);
             }
         });
 
-        mesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mês", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+        mesComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mês", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
 
         anoComboBox.setModel(new javax.swing.DefaultComboBoxModel(arrayAnos.toArray()));
+        anoComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anoComboBoxActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.setAlignmentX(0.0F);
@@ -141,9 +166,14 @@ semLogin1.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_diaComboBoxActionPerformed
 
+    private void anoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anoComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anoComboBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -167,6 +197,8 @@ semLogin1.setVisible(false);
             java.util.logging.Logger.getLogger(mainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

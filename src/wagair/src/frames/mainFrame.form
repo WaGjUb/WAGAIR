@@ -163,6 +163,9 @@
           <Connection code="new javax.swing.DefaultComboBoxModel(arrayAnos.toArray())" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="anoComboBoxActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -179,6 +182,9 @@
       </Properties>
       <SubComponents>
         <Component class="frames.semLogin" name="semLogin1">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new frames.semLogin(this)"/>
+          </AuxValues>
         </Component>
         <Component class="frames.comLogin" name="comLogin1">
         </Component>

@@ -13,19 +13,19 @@ import javax.swing.JOptionPane;
  */
 public class Passagem {
     
-    private Voo voo;
+    private Conexao conexao;
     private String assento;
     private int id = -1;
     
     
-    Passagem(Voo voo, String assento)
+   public Passagem(Voo voo, String assento)
     {
-        this.voo = voo;
+        this.conexao = conexao;
         this.assento = assento;
     }
 
-    public Voo getVoo() {
-        return voo;
+    public Conexao getConexao() {
+        return conexao;
     }
 
     public String getAssento() {

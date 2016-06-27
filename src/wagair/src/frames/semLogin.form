@@ -33,11 +33,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Cadastrar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="criarCadastroButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="fazerLoginButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Fazer Login"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fazerLoginButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

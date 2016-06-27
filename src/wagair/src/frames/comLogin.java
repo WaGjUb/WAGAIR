@@ -6,6 +6,7 @@
 package frames;
 
 import javax.swing.JPanel;
+import wagair.Login;
 
 /**
  *
@@ -16,8 +17,15 @@ public class comLogin extends javax.swing.JPanel {
     /**
      * Creates new form comLogin
      */
+    private Login login;
+    public void setLogin(Login l) throws Exception
+    {
+        this.login = l;
+        nomeLabel.setText(l.getUsuario());
+    }
     public comLogin() {
         initComponents();
+        
     }
 
     /**
@@ -63,6 +71,7 @@ public class comLogin extends javax.swing.JPanel {
 
     private void nomeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomeLabelMouseClicked
         // TODO add your handling code here:
+        //verificar se é vendedor ou cliente
                               compraFrame panel = new compraFrame();
         panel.setVisible(true);
     }//GEN-LAST:event_nomeLabelMouseClicked

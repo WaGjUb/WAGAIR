@@ -17,7 +17,7 @@ public class Aeroporto {
     String pais;
     int id = -1;
     
-    Aeroporto(String nome, String cidade, String pais)
+    public Aeroporto(String nome, String cidade, String pais)
     {
         this.nome = nome;
         this.cidade = cidade;

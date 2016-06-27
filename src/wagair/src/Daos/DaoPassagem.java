@@ -19,14 +19,14 @@ import wagair.Passagem;
 public class DaoPassagem {
     private JDBCwagair c;
     private Passagem pas;
-    private int vooID;
+    private int conexaoID;
     private String numAssento;
     private int ID;
     
       public DaoPassagem(Passagem p) throws SQLException, ClassNotFoundException, Exception{
             this.c = new JDBCwagair();
             this.pas = p;
-            this.vooID = p.getVoo().getID();
+            this.conexaoID = p.getConexao().getID();
             this.numAssento = p.getAssento();
     }
       
@@ -37,11 +37,11 @@ public class DaoPassagem {
         // Statement myStmt = myConn.createStatement();
         
          String sql = "INSERT INTO passagem "+
-                 "(numAssento, vooID) "+
+                 "(numAssento, conexaoID) "+
                    "values (?, ?)";
          PreparedStatement stmt = myConn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
          stmt.setString(1, this.numAssento);
-         stmt.setInt(2, this.vooID);
+         stmt.setInt(2, this.conexaoID);
 
          
          stmt.executeUpdate();
@@ -56,4 +56,6 @@ public class DaoPassagem {
        // myStmt.executeUpdate("insert * from valet");
         
     }
+          
+          
 }

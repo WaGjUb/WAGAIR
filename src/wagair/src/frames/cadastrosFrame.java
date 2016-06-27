@@ -5,6 +5,28 @@
  */
 package frames;
 
+import Daos.DaoAeroporto;
+import Daos.DaoAviao;
+import Daos.DaoConexao;
+import Daos.DaoRota;
+import Daos.DaoVoo;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import wagair.Aeroporto;
+import wagair.Aviao;
+import wagair.Conexao;
+import wagair.Rota;
+import wagair.Voo;
+
 /**
  *
  * @author a1625381
@@ -14,8 +36,34 @@ public class cadastrosFrame extends javax.swing.JFrame {
     /**
      * Creates new form cadastrosFrame
      */
-    public cadastrosFrame() {
+    ArrayList<String> str = new ArrayList<>();
+    ArrayList<Aeroporto> resultado;
+   int var = -1; //variavel que corrige bug do panne para sobrescrita de dados
+    ArrayList<Rota> auxiliarRota;
+    ArrayList<Aeroporto> auxiliarAeroporto;
+    ArrayList<Aviao> auxiliarAviao;
+    ArrayList<Voo> auxiliarVoo;
+    
+       
+    public cadastrosFrame() throws SQLException, ClassNotFoundException, Exception {
+        //int index = 0;
+    //    DaoAeroporto daoaero = new DaoAeroporto();
+    //    resultado = daoaero.getAeroportos();
+        // para a inserção da rota
+       
+    //    for (Aeroporto aux : resultado) {
+      //      str.add(aux.getNome() + " - " + aux.getCidade() + " - " + aux.getPais());
+
+            //    nome.add(aux.getNome());
+            //    cidade.add(aux.getCidade());
+            //    pais.add(aux.getPais());
+       // }
+       
+
+
+        // para a inserção do voo
         initComponents();
+
     }
 
     /**
@@ -27,7 +75,7 @@ public class cadastrosFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        TabbedPane = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         fabricanteLabel = new javax.swing.JLabel();
@@ -42,41 +90,49 @@ public class cadastrosFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        cadastrarAeroportoButton = new javax.swing.JButton();
+        nomeTextField = new javax.swing.JTextField();
+        cidadeTextField = new javax.swing.JTextField();
+        paisTextField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        origemComboBox = new javax.swing.JComboBox<String>();
+        destinoComboBox = new javax.swing.JComboBox<String>();
+        cadastrarRotaButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jSpinner1 = new javax.swing.JSpinner();
-        jSpinner2 = new javax.swing.JSpinner();
+        cadastrarVooButton = new javax.swing.JButton();
+        partidaSpinner = new javax.swing.JSpinner();
+        chegadaSpinner = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jSpinner3 = new javax.swing.JSpinner();
+        rotaComboBox = new javax.swing.JComboBox<String>();
+        livresSpinner = new javax.swing.JSpinner();
+        jLabel10 = new javax.swing.JLabel();
+        aviaoComboBox = new javax.swing.JComboBox();
         jPanel5 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jComboBox5 = new javax.swing.JComboBox<>();
+        conexao1ComboBox = new javax.swing.JComboBox<String>();
+        conexao2ComboBox = new javax.swing.JComboBox<String>();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jSpinner4 = new javax.swing.JSpinner();
+        quantidadeSpinner = new javax.swing.JSpinner();
         cadastrarConexaoButton = new javax.swing.JButton();
         precoLabel = new javax.swing.JLabel();
-        precoTextField = new javax.swing.JTextField();
+        precoSpinner = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        TabbedPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabbedPaneMouseClicked(evt);
+            }
+        });
 
         fabricanteLabel.setText("Fabricante:");
 
@@ -85,6 +141,17 @@ public class cadastrosFrame extends javax.swing.JFrame {
         capacidadeLabel.setText("Capacidade:");
 
         cadastrarButton.setText("Cadastrar Avião");
+        cadastrarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarButtonActionPerformed(evt);
+            }
+        });
+
+        fabricanteTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fabricanteTextFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -106,7 +173,7 @@ public class cadastrosFrame extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(249, 249, 249)
                         .addComponent(cadastrarButton)))
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addContainerGap(217, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +212,7 @@ public class cadastrosFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Avião", jPanel1);
+        TabbedPane.addTab("Avião", jPanel1);
 
         jLabel5.setText("Nome:");
 
@@ -153,7 +220,12 @@ public class cadastrosFrame extends javax.swing.JFrame {
 
         jLabel7.setText("País:");
 
-        jButton2.setText("Cadastrar Aeroporto");
+        cadastrarAeroportoButton.setText("Cadastrar Aeroporto");
+        cadastrarAeroportoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarAeroportoButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -163,23 +235,23 @@ public class cadastrosFrame extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(233, 233, 233)
-                        .addComponent(jButton2))
+                        .addComponent(cadastrarAeroportoButton))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(34, 34, 34)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                                .addComponent(paisTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel5))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))))))
-                .addContainerGap(219, Short.MAX_VALUE))
+                                    .addComponent(nomeTextField)
+                                    .addComponent(cidadeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))))))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,17 +259,17 @@ public class cadastrosFrame extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cidadeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(paisTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(cadastrarAeroportoButton)
                 .addGap(76, 76, 76))
         );
 
@@ -215,37 +287,41 @@ public class cadastrosFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Aeroporto", jPanel4);
+        TabbedPane.addTab("Aeroporto", jPanel4);
 
         jLabel8.setText("Aeroporto de origem:");
 
         jLabel9.setText("Aeroporto de destino:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        origemComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                origemComboBoxActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jButton3.setText("Cadastrar Rota");
+        cadastrarRotaButton.setText("Cadastrar Rota");
+        cadastrarRotaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarRotaButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(216, 216, 216)
+                .addComponent(cadastrarRotaButton)
+                .addGap(0, 257, Short.MAX_VALUE))
+            .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addComponent(jButton3)))
-                .addContainerGap(116, Short.MAX_VALUE))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(destinoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(origemComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,13 +329,13 @@ public class cadastrosFrame extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(origemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(71, 71, 71)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                    .addComponent(destinoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addComponent(cadastrarRotaButton)
                 .addGap(88, 88, 88))
         );
 
@@ -280,23 +356,30 @@ public class cadastrosFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Rota", jPanel3);
+        TabbedPane.addTab("Rota", jPanel3);
 
         jLabel1.setText("Partida:");
 
         jLabel2.setText("Chegada:");
 
-        jButton1.setText("Cadastrar Voo");
+        cadastrarVooButton.setText("Cadastrar Voo");
+        cadastrarVooButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarVooButtonActionPerformed(evt);
+            }
+        });
 
-        jSpinner1.setModel(new javax.swing.SpinnerDateModel());
+        partidaSpinner.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1451656800000L), null, null, java.util.Calendar.DAY_OF_MONTH));
 
-        jSpinner2.setModel(new javax.swing.SpinnerDateModel());
+        chegadaSpinner.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1451656800000L), null, null, java.util.Calendar.DAY_OF_MONTH));
 
         jLabel3.setText("Rota:");
 
         jLabel4.setText("Assentos Livres:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel10.setText("Avião:");
+
+        aviaoComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -310,21 +393,26 @@ public class cadastrosFrame extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(222, 222, 222)
+                        .addComponent(cadastrarVooButton))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel10))
                         .addGap(25, 25, 25)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jSpinner2)
-                                .addComponent(jSpinner1))
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(222, 222, 222)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(rotaComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(livresSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(aviaoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(chegadaSpinner, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                                        .addComponent(partidaSpinner, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addGap(0, 147, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,21 +420,25 @@ public class cadastrosFrame extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(partidaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chegadaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(rotaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                    .addComponent(jLabel10)
+                    .addComponent(aviaoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(livresSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addComponent(cadastrarVooButton)
                 .addGap(35, 35, 35))
         );
 
@@ -367,19 +459,17 @@ public class cadastrosFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Voo", jPanel2);
+        TabbedPane.addTab("Voo", jPanel2);
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+        conexao1ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox4ActionPerformed(evt);
+                conexao1ComboBoxActionPerformed(evt);
             }
         });
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+        conexao2ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox5ActionPerformed(evt);
+                conexao2ComboBoxActionPerformed(evt);
             }
         });
 
@@ -389,37 +479,46 @@ public class cadastrosFrame extends javax.swing.JFrame {
 
         jLabel14.setText("Qtd:");
 
+        quantidadeSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+
         cadastrarConexaoButton.setText("Cadastrar Conexão");
+        cadastrarConexaoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarConexaoButtonActionPerformed(evt);
+            }
+        });
 
         precoLabel.setText("Preço:");
+
+        precoSpinner.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.0f), Float.valueOf(0.0f), null, Float.valueOf(0.01f)));
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jLabel12)
+                .addGap(6, 6, 6)
+                .addComponent(precoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(precoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(cadastrarConexaoButton)
+                .addGap(215, 215, 215))
+            .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(conexao2ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner4))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addGap(0, 14, Short.MAX_VALUE)
-                        .addComponent(cadastrarConexaoButton)
-                        .addGap(215, 215, 215))))
+                        .addComponent(conexao1ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(precoLabel)
+                .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(precoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(quantidadeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -427,17 +526,21 @@ public class cadastrosFrame extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
+                    .addComponent(conexao1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(conexao2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+                    .addComponent(quantidadeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(precoLabel)
-                    .addComponent(precoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                    .addComponent(precoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
                 .addComponent(cadastrarConexaoButton)
                 .addGap(43, 43, 43))
         );
@@ -459,7 +562,7 @@ public class cadastrosFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Conexões", jPanel5);
+        TabbedPane.addTab("Conexões", jPanel5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -467,27 +570,277 @@ public class cadastrosFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(TabbedPane)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(TabbedPane)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+    private void conexao1ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conexao1ComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox4ActionPerformed
+    }//GEN-LAST:event_conexao1ComboBoxActionPerformed
 
-    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+    private void conexao2ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conexao2ComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox5ActionPerformed
+    }//GEN-LAST:event_conexao2ComboBoxActionPerformed
+
+    private void fabricanteTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fabricanteTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fabricanteTextFieldActionPerformed
+
+    private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
+
+        try {
+            String fabricante = fabricanteTextField.getText();
+            String modelo = modeloTextField.getText();
+            int capacidade = Integer.parseInt(capacidadeTextField.getText());
+            /*Fazer verificações aqui*/
+            Aviao aviao = new Aviao(fabricante, modelo, capacidade); //cria o aviao
+
+            DaoAviao da = new DaoAviao(aviao);
+            da.insertAviao();
+            JOptionPane.showMessageDialog(null, "Avião inserido");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "erro ao inserir o avião");
+        }
+
+
+    }//GEN-LAST:event_cadastrarButtonActionPerformed
+
+    private void cadastrarAeroportoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarAeroportoButtonActionPerformed
+        try {
+            String nome = nomeTextField.getText();
+            String cidade = cidadeTextField.getText();
+            String pais = paisTextField.getText();
+            /*Fazer verificações aqui*/
+            Aeroporto aeroporto = new Aeroporto(nome, cidade, pais); //cria o aviao
+
+            DaoAeroporto da = new DaoAeroporto(aeroporto);
+            da.insertAeroporto();
+            JOptionPane.showMessageDialog(null, "Aeroporto inserido");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "erro ao inserir o aeroporto");
+        }
+    }//GEN-LAST:event_cadastrarAeroportoButtonActionPerformed
+
+    private void origemComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_origemComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_origemComboBoxActionPerformed
+
+    private void cadastrarRotaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarRotaButtonActionPerformed
+        try {
+            int idxOrigem = origemComboBox.getSelectedIndex();
+            int idxDestino = destinoComboBox.getSelectedIndex();
+
+            /*Fazer verificações aqui*/
+            Rota rota = new Rota(auxiliarAeroporto.get(idxOrigem), auxiliarAeroporto.get(idxDestino)); //cria a rota
+            DaoRota dr = new DaoRota(rota);
+            dr.insertRota();
+            JOptionPane.showMessageDialog(null, "Rota inserida");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "erro ao inserir a rota");
+        }
+    }//GEN-LAST:event_cadastrarRotaButtonActionPerformed
+
+    private void cadastrarVooButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarVooButtonActionPerformed
+
+        java.util.Date datPartida = (java.util.Date) partidaSpinner.getValue(); //converte o spinner para calendario
+        java.util.Date datChegada = (java.util.Date) chegadaSpinner.getValue();
+        Calendar calPartida = Calendar.getInstance();
+        Calendar calChegada = Calendar.getInstance();
+       
+        
+       
+        calPartida.setTime(datPartida);
+        calChegada.setTime(datChegada);
+         //System.out.println(calPartida.compareTo(calChegada) + " " + calPartida.equals(calChegada));
+         if (calPartida.compareTo(calChegada) >= 0)
+        {
+            JOptionPane.showMessageDialog(null, "erro, insira uma data válida");
+        }
+        else
+        {
+        Rota rota = auxiliarRota.get(rotaComboBox.getSelectedIndex());
+        int livres = Integer.parseInt(String.valueOf(livresSpinner.getValue()));
+
+        Aviao aviao = auxiliarAviao.get(aviaoComboBox.getSelectedIndex());
+        if (livres > aviao.getCapacidade())
+        {
+            JOptionPane.showMessageDialog(null, "erro, insira um valor válido de assentos livres");
+        }
+        else
+        {
+            Voo voo = new Voo(calPartida, calChegada, aviao, livres, rota);
+            try {
+                DaoVoo dv = new DaoVoo(voo);
+                dv.insertAviao();
+                JOptionPane.showMessageDialog(null, "Voo inserido");
+            } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "erro ao inserir o voo");
+        }
+        }
+        }
+        
+
+  //  partidaSpinner.setEditor(new JSpinner.DateEditor(partidaSpinner, "dd/mm/yy hh:mm"));   
+        //  chegadaSpinner.setEditor(new JSpinner.DateEditor(chegadaSpinner, "dd/mm/yy hh:mm"));
+
+    }//GEN-LAST:event_cadastrarVooButtonActionPerformed
+
+    private void TabbedPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabbedPaneMouseClicked
+          if (var != TabbedPane.getSelectedIndex())
+          {
+            switch (TabbedPane.getSelectedIndex()){
+                case 2:
+                 DaoAeroporto daoaero;
+                     ArrayList<String> str = new ArrayList<>();
+    ArrayList<Aeroporto> resultado;
+            try {
+                daoaero = new DaoAeroporto();
+                resultado = daoaero.getAeroportos();
+        // para a inserção da rota
+       
+                for (Aeroporto aux : resultado) {
+                    str.add(aux.getNome() + " - " + aux.getCidade() + " - " + aux.getPais()); }
+                origemComboBox.setModel(new javax.swing.DefaultComboBoxModel(str.toArray()));
+                destinoComboBox.setModel(new javax.swing.DefaultComboBoxModel(str.toArray()));
+                auxiliarAeroporto = resultado;
+                    break;
+            } catch (SQLException ex) {
+                Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          
+            
+            case 3:
+                
+                partidaSpinner.setEditor(new JSpinner.DateEditor(partidaSpinner, "dd/MM/yy HH:mm"));
+                chegadaSpinner.setEditor(new JSpinner.DateEditor(chegadaSpinner, "dd/MM/yy HH:mm"));
+                ArrayList<String> strvoo = new ArrayList<>();   
+                ArrayList<String> straviao = new ArrayList<>();
+                ArrayList<Rota> resultadoRota;
+                ArrayList<Aviao> resultadoAviao;
+                DaoRota daorota;
+                DaoAviao daoaviao;
+             
+                try {
+                    daorota = new DaoRota();
+                    resultadoRota = daorota.getRotas();
+                    for (Rota aux : resultadoRota) {
+                strvoo.add(aux.getOrigem().getCidade() + " - " + aux.getOrigem().getNome() + " -> " + aux.getDestino().getCidade() + " - " + aux.getDestino().getNome());   
+                 auxiliarRota = resultadoRota;
+                 
+                 
+             //   System.out.print(strvoo.get(0));
+             }
+                            //inserção das rotas no voo
+             
+             rotaComboBox.setModel(new javax.swing.DefaultComboBoxModel(strvoo.toArray()));
+             
+             daoaviao = new DaoAviao();
+                    resultadoAviao = daoaviao.getAviao();
+                    for (Aviao aux : resultadoAviao) {
+                straviao.add(aux.getFabricante() + " - " + aux.getModelo() + " - " + String.valueOf(aux.getCapacidade()));   
+                 auxiliarAviao = resultadoAviao;
+                 
+                 
+             //   System.out.print(strvoo.get(0));
+             }
+                    
+             aviaoComboBox.setModel(new javax.swing.DefaultComboBoxModel(straviao.toArray()));
+             
+             
+                break;
+                } catch (SQLException ex) {
+                    Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            case 4:
+                DaoVoo daovoo;
+                     ArrayList<String> voostr = new ArrayList<>();
+                    ArrayList<Voo> vooresultado;
+            try {
+                daovoo = new DaoVoo();
+                vooresultado = daovoo.getVoos();
+        // para a inserção da rota
+       
+                for (Voo aux : vooresultado) {
+                    voostr.add(aux.getRota().getOrigem().getNome() + " -> " + aux.getRota().getDestino().getNome() + " - " + aux.getDataPartida().getTime() + " - " + aux.getDataChegada().getTime()); }
+                conexao1ComboBox.setModel(new javax.swing.DefaultComboBoxModel(voostr.toArray()));         
+                conexao2ComboBox.setModel(new javax.swing.DefaultComboBoxModel(voostr.toArray()));         
+                auxiliarVoo = vooresultado;
+                    break;
+            } catch (SQLException ex) {
+                Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+            
+            break;
+           
+            
+            }}
+          var = TabbedPane.getSelectedIndex();
+    }//GEN-LAST:event_TabbedPaneMouseClicked
+
+    private void cadastrarConexaoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarConexaoButtonActionPerformed
+        // TODO add your handling code here:
+       float preco = Float.parseFloat(String.valueOf(precoSpinner.getValue()));
+       int voo1 = conexao1ComboBox.getSelectedIndex();
+       int voo2 = conexao2ComboBox.getSelectedIndex();
+       int quantidade = Integer.parseInt(String.valueOf(quantidadeSpinner.getValue()));
+       
+       ArrayList<Voo> voos = new ArrayList<>();
+       Voo v1 = auxiliarVoo.get(voo1);
+       Voo v2 = auxiliarVoo.get(voo2);
+       voos.add(v1);
+       voos.add(v2);
+       
+        try {
+            if (v1.equals(v2) || (v1.getRota().getDestino().getNome().equals(v2.getRota().getOrigem().getNome())))
+            {
+                Conexao conexao = new Conexao(preco,voos,quantidade);
+                try {
+                    DaoConexao dc = new DaoConexao(conexao);
+                    dc.insertConexao();
+                    JOptionPane.showMessageDialog(null, "Conexão inserida");
+                } catch (ClassNotFoundException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro, ao inserir conexão");
+                    Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Erro, ao inserir conexão");
+                    Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Erro, rota inválida");
+            }} catch (Exception ex) {
+            Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+       
+
+    }//GEN-LAST:event_cadastrarConexaoButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -519,27 +872,38 @@ public class cadastrosFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new cadastrosFrame().setVisible(true);
+                try {
+                    new cadastrosFrame().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(cadastrosFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane TabbedPane;
+    private javax.swing.JComboBox aviaoComboBox;
+    private javax.swing.JButton cadastrarAeroportoButton;
     private javax.swing.JButton cadastrarButton;
     private javax.swing.JButton cadastrarConexaoButton;
+    private javax.swing.JButton cadastrarRotaButton;
+    private javax.swing.JButton cadastrarVooButton;
     private javax.swing.JLabel capacidadeLabel;
     private javax.swing.JTextField capacidadeTextField;
+    private javax.swing.JSpinner chegadaSpinner;
+    private javax.swing.JTextField cidadeTextField;
+    private javax.swing.JComboBox<String> conexao1ComboBox;
+    private javax.swing.JComboBox<String> conexao2ComboBox;
+    private javax.swing.JComboBox<String> destinoComboBox;
     private javax.swing.JLabel fabricanteLabel;
     private javax.swing.JTextField fabricanteTextField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -561,17 +925,16 @@ public class cadastrosFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
-    private javax.swing.JSpinner jSpinner4;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JSpinner livresSpinner;
     private javax.swing.JLabel modeloLabel;
     private javax.swing.JTextField modeloTextField;
+    private javax.swing.JTextField nomeTextField;
+    private javax.swing.JComboBox<String> origemComboBox;
+    private javax.swing.JTextField paisTextField;
+    private javax.swing.JSpinner partidaSpinner;
     private javax.swing.JLabel precoLabel;
-    private javax.swing.JTextField precoTextField;
+    private javax.swing.JSpinner precoSpinner;
+    private javax.swing.JSpinner quantidadeSpinner;
+    private javax.swing.JComboBox<String> rotaComboBox;
     // End of variables declaration//GEN-END:variables
 }

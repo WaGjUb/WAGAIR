@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import wagair.Aeroporto;
 import wagair.Rota;
 
 /**
@@ -34,8 +36,66 @@ public class DaoRota {
             this.capacidade = a.getCapacidade();
             this.idComp = a.getComp().getID();*/
     }
+   
+   public DaoRota() throws SQLException, ClassNotFoundException 
+   {
+    this.c = new JDBCwagair();   
+   }
     
-    int insertRota() throws SQLException
+      public ArrayList<Rota> getRotas() throws SQLException, ClassNotFoundException
+   {
+        ArrayList<Rota> resultado = new ArrayList<>();
+        
+        Connection myConn = this.c.getConnection();       
+        Statement myStmt = myConn.createStatement();
+        ResultSet myRS = myStmt.executeQuery("select * from rota");
+
+        while (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            int origem = Integer.parseInt(myRS.getString("origemID"));
+            int destino = Integer.parseInt(myRS.getString("destinoID"));
+            DaoAeroporto da = new DaoAeroporto();
+            Aeroporto aerOrigem = da.getAeroportoByID(origem);
+            Aeroporto aerDestino = da.getAeroportoByID(destino);
+            Rota aux = new Rota(aerOrigem, aerDestino);
+            aux.setID(id);            
+            resultado.add(aux);
+        }
+       
+       return resultado;
+   }
+      
+       public Rota getRotasByID(int searchID) throws SQLException, ClassNotFoundException
+   {
+        
+        
+        Connection myConn = this.c.getConnection();     
+
+         String sql = "select * from rota where id = ?";
+
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, searchID);
+                
+        ResultSet myRS = stmt.executeQuery();
+
+        if (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            int origem = Integer.parseInt(myRS.getString("origemID"));
+            int destino = Integer.parseInt(myRS.getString("destinoID"));
+            DaoAeroporto da = new DaoAeroporto();
+            Aeroporto aerOrigem = da.getAeroportoByID(origem);
+            Aeroporto aerDestino = da.getAeroportoByID(destino);
+            Rota aux = new Rota(aerOrigem, aerDestino);
+            aux.setID(id);                   
+            return aux;
+        }
+       else
+        {
+            return null;
+        }
+   }
+   
+    public int insertRota() throws SQLException
     {
         
         Connection myConn = this.c.getConnection();

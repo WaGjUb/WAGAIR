@@ -24,7 +24,7 @@ private Cliente cliente;
 
     public DaoCliente(Cliente cli) throws SQLException, ClassNotFoundException, Exception {
         super(cli);
-        
+        this.c = new JDBCwagair();
         this.CPF = cli.getCPF();
         this.cliente = cli;
     }

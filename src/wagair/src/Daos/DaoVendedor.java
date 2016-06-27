@@ -25,7 +25,7 @@ private Vendedor vendedor;
     
     public DaoVendedor(Vendedor vend) throws SQLException, ClassNotFoundException, Exception {
         super(vend);
-        
+        this.c = new JDBCwagair();
         this.CNPJ = vend.getCNPJ();
         this.vendedor = vend;
     }
@@ -37,7 +37,7 @@ private Vendedor vendedor;
         Connection myConn = this.c.getConnection();
         // Statement myStmt = myConn.createStatement();
         
-         String sql = "INSERT INTO cliente "+
+         String sql = "INSERT INTO vendedor "+
                  "(pessoaID, CNPJ) "+
                    "values (?, ?)";
          PreparedStatement stmt = myConn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

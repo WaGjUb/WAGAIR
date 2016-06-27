@@ -6,6 +6,7 @@
 package wagair;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,14 +14,20 @@ import java.util.ArrayList;
  */
 public class Item {
     
-    ArrayList<Conexao> conexao;
+    private ArrayList<Conexao> conexao = new ArrayList<>();
+    private int id = -1;
     
-    Item(ArrayList<Conexao> conexao)
+    
+    public Item(ArrayList<Conexao> conexao)
     {
         this.conexao = conexao;
     }
+
+    public ArrayList<Conexao> getConexao() {
+        return conexao;
+    }
     
-    boolean addConexao(Conexao conexao)
+    public boolean addConexao(Conexao conexao)
     {
      
         try
@@ -35,7 +42,7 @@ public class Item {
     
     }
     
-       boolean removerConexao(Conexao conexao)
+      public boolean removerConexao(Conexao conexao)
     {
      
         try
@@ -50,7 +57,7 @@ public class Item {
     
     }
        
-       float getValorTotal()
+       public float getValorTotal()
        {
            float total = 0;
            for (Conexao con : conexao)
@@ -59,5 +66,28 @@ public class Item {
            }
            return(total);
        }
+       
+       public boolean setID(int id)
+        {
+            try{
+                this.id = id;
+                return true;
+            }
+               catch (Exception e)
+               {
+                   JOptionPane.showMessageDialog(null, "erro ao setar o id do item");
+                   return false;
+               }
+        }
     
+       public int getID() throws Exception
+            {
+                if (this.id == -1)
+                 {
+                      throw new Exception("Erro, id do item inválido (-1)");
+                 }
+                
+                 else
+                       return this.id;
+                 }
 }

@@ -16,7 +16,7 @@ public class Rota {
        private Aeroporto destino;
        private int id = -1;
     
-        Rota(Aeroporto origem, Aeroporto destino)
+        public Rota(Aeroporto origem, Aeroporto destino)
         {
             this.origem = origem;
             this.destino = destino;

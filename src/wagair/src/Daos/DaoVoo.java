@@ -10,6 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import wagair.Aeroporto;
+import wagair.Aviao;
+import wagair.Passagem;
+import wagair.Rota;
 import wagair.Voo;
 
 /**
@@ -37,6 +46,41 @@ public class DaoVoo {
             this.aviaoID = v.getAviao().getID();
     }
     
+    public DaoVoo() throws SQLException, ClassNotFoundException, Exception{
+            this.c = new JDBCwagair();
+
+    }
+    
+    public ArrayList<Voo> getVoos() throws SQLException, ClassNotFoundException
+   {
+        ArrayList<Voo> resultado = new ArrayList<>();
+        
+        Connection myConn = this.c.getConnection();       
+        Statement myStmt = myConn.createStatement();
+        ResultSet myRS = myStmt.executeQuery("select * from voo");
+
+        while (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            java.sql.Timestamp dataPartida = java.sql.Timestamp.valueOf(myRS.getString("dataPartida"));
+            java.sql.Timestamp dataChegada = java.sql.Timestamp.valueOf(myRS.getString("dataChegada"));
+            int assentosLivres = Integer.parseInt(myRS.getString("assentosLivres"));
+            int rotaID = Integer.parseInt(myRS.getString("rotaID"));
+            int aviaoID = Integer.parseInt(myRS.getString("aviaoID"));
+            DaoRota dr = new DaoRota();
+            Rota rota = dr.getRotasByID(rotaID);
+            DaoAviao da = new DaoAviao();
+            Aviao aviao = da.getAvioesByID(aviaoID);
+            Calendar calPartida = Calendar.getInstance();
+            Calendar calChegada = Calendar.getInstance();
+            calPartida.setTime(new Date(dataPartida.getTime()));
+            calChegada.setTime(new Date(dataChegada.getTime()));
+            Voo aux = new Voo(calPartida, calChegada, aviao, assentosLivres, rota);
+            aux.setID(id);            
+            resultado.add(aux);
+        }
+       
+       return resultado;
+   }
      public int insertAviao() throws SQLException
     {
         
@@ -60,6 +104,22 @@ public class DaoVoo {
          this.ID = rs.getInt(1);
          this.voo.setID(this.ID);
          c.closeConnection(myConn, rs, stmt);
+         
+     /*    //geraPassagens
+         for (int i = 0; i < this.assentosLivres; i++)
+         {
+             try{
+             Passagem p = new Passagem(this.voo, String.valueOf(i));
+             DaoPassagem dp = new DaoPassagem(p);
+             dp.insertPassagem();
+         }
+            catch (Exception e)
+               {
+                   JOptionPane.showMessageDialog(null, "erro ao gerar passagens para voo");
+                  
+               }
+         }*/
+         
          return (this.ID);
          
          //ResultSet rs = preparedStatement.executeQuery();

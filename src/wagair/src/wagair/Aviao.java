@@ -18,7 +18,7 @@ public class Aviao {
     private int capacidade;
     private CompanhiaAerea companhia = null;
     
-    Aviao(String fabricante, String modelo, int capacidade, CompanhiaAerea companhia)
+    public Aviao(String fabricante, String modelo, int capacidade, CompanhiaAerea companhia)
     {
         this.fabricante = fabricante;
         this.modelo = modelo;
@@ -26,7 +26,7 @@ public class Aviao {
         this.companhia = companhia;
     }
     
-    Aviao(String fabricante, String modelo, int capacidade)
+    public Aviao(String fabricante, String modelo, int capacidade)
     {
         this.fabricante = fabricante;
         this.modelo = modelo;

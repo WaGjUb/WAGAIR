@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import wagair.Aeroporto;
 
 /**
@@ -30,8 +31,62 @@ public class DaoAeroporto {
             this.cidade = a.getCidade();
             this.pais = a.getPais();
     }
+
+    public DaoAeroporto() throws SQLException, ClassNotFoundException {
+        this.c = new JDBCwagair();
+    }
+   
     
-    int insertAeroporto() throws SQLException
+   public ArrayList<Aeroporto> getAeroportos() throws SQLException
+   {
+        ArrayList<Aeroporto> resultado = new ArrayList<>();
+        
+        Connection myConn = this.c.getConnection();       
+        Statement myStmt = myConn.createStatement();
+        ResultSet myRS = myStmt.executeQuery("select * from aeroporto");
+
+        while (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            String n = myRS.getString("nome");
+            String cidade = myRS.getString("cidade");
+            String pais = myRS.getString("pais");
+            Aeroporto aux = new Aeroporto(n, cidade, pais);
+            aux.setID(id);            
+            resultado.add(aux);
+        }
+       
+       return resultado;
+   }
+   
+    public Aeroporto getAeroportoByID(int searchID) throws SQLException
+   {
+        
+        
+        Connection myConn = this.c.getConnection();     
+
+         String sql = "select * from aeroporto where id = ?";
+;
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, searchID);
+                
+        ResultSet myRS = stmt.executeQuery();
+
+        if (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            String n = myRS.getString("nome");
+            String cidade = myRS.getString("cidade");
+            String pais = myRS.getString("pais");
+            Aeroporto aux = new Aeroporto(n, cidade, pais);
+            aux.setID(id);            
+            return aux;
+        }
+       else
+        {
+            return null;
+        }
+   }
+   
+   public int insertAeroporto() throws SQLException
     {
         
         Connection myConn = this.c.getConnection();
