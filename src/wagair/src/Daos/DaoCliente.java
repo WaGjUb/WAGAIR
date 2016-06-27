@@ -28,6 +28,10 @@ private Cliente cliente;
         this.CPF = cli.getCPF();
         this.cliente = cli;
     }
+
+    public DaoCliente() throws SQLException, ClassNotFoundException {
+        this.c = new JDBCwagair();
+    }
     
    public int insertCliente() throws SQLException
     {

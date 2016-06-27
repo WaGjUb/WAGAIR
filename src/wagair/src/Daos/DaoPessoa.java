@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import wagair.Aeroporto;
 import wagair.Pessoa;
 
 /**
@@ -44,10 +45,35 @@ public class DaoPessoa {
                       
     }
    //fere o OO a função abaixo
-    public Pessoa getPessoa()
-    {
-        return(this.pess);
+
+    public DaoPessoa() throws SQLException, ClassNotFoundException {
+       this.c = new JDBCwagair();
     }
+    
+        public int getPessoaIDByLoginID(int searchID) throws SQLException
+   {
+        
+        
+        Connection myConn = this.c.getConnection();     
+
+         String sql = "select id from pessoa where loginID = ?";
+
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, searchID);
+                
+        ResultSet myRS = stmt.executeQuery();
+
+        if (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            
+            return id;
+        }
+       else
+        {
+            return -1;
+        }
+   }
+   
      //insere a pessoa e retorna o ID gerado
     public int insertPessoa() throws SQLException
     {

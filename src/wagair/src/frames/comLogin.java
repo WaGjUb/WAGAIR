@@ -5,6 +5,11 @@
  */
 package frames;
 
+import Daos.DaoCliente;
+import Daos.DaoPessoa;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import wagair.Login;
 
@@ -72,6 +77,26 @@ public class comLogin extends javax.swing.JPanel {
     private void nomeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomeLabelMouseClicked
         // TODO add your handling code here:
         //verificar se é vendedor ou cliente
+        
+        try {
+            int pessoaID;
+            DaoPessoa dp;
+            dp = new DaoPessoa();
+            pessoaID = dp.getPessoaIDByLoginID(login.getID());
+            System.out.println("id de pessoa conseguido");
+            DaoCliente dc;
+            dc = new DaoCliente();
+            dc.getClienteIDByPessoaID(pessoaID);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(comLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(comLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(comLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
                               compraFrame panel = new compraFrame();
         panel.setVisible(true);
     }//GEN-LAST:event_nomeLabelMouseClicked

@@ -65,7 +65,7 @@ public class DaoAeroporto {
         Connection myConn = this.c.getConnection();     
 
          String sql = "select * from aeroporto where id = ?";
-;
+
          PreparedStatement stmt = myConn.prepareStatement(sql);
          stmt.setInt(1, searchID);
                 
