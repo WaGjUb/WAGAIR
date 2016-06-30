@@ -5,6 +5,17 @@
  */
 package frames;
 
+import Daos.DaoConexao;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ListModel;
+import wagair.Conexao;
+import wagair.Login;
+import wagair.Voo;
+
 /**
  *
  * @author a1625381
@@ -14,8 +25,40 @@ public class exibePesquisa extends javax.swing.JFrame {
     /**
      * Creates new form exibePesquisa
      */
-    public exibePesquisa() {
+    
+        ArrayList<String> strConexao = new ArrayList<>();
+    ArrayList<Conexao> resultadoConexao;  
+    ListModel<String> array;
+    Login login;
+    
+    
+     public void setLogin(Login l)
+    {
+        this.login = l;
+    }
+   public void setConexao(ArrayList<Conexao> c)
+   {
+       this.resultadoConexao = c;
+   }
+     
+     
+    public exibePesquisa() throws SQLException, ClassNotFoundException, Exception {
+     //   DaoConexao dc = new DaoConexao();
+        
+     //   resultadoConexao = dc.getConexao();
+        
+        for (Conexao auxc : resultadoConexao) {
+            Voo first = auxc.getVoo().get(0);
+            Voo last = auxc.getVoo().get(auxc.getVoo().size()-1);
+            
+                        
+                        strConexao.add(first.getRota().getOrigem().getNome() + " -> " + last.getRota().getDestino().getNome() + " - " + first.getDataPartida().getTime() + " - " + last.getDataChegada().getTime()); 
+
+        }
+
         initComponents();
+        
+           
     }
 
     /**
@@ -27,33 +70,27 @@ public class exibePesquisa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        conexoesList = new javax.swing.JList<>();
+        jComboBox2 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        conexoesList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(conexoesList);
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(strConexao.toArray()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -89,13 +126,18 @@ public class exibePesquisa extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new exibePesquisa().setVisible(true);
+                try {
+                    new exibePesquisa().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(exibePesquisa.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(exibePesquisa.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> conexoesList;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox jComboBox2;
     // End of variables declaration//GEN-END:variables
 }

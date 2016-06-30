@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import wagair.Aeroporto;
@@ -44,6 +45,7 @@ public class cadastrosFrame extends javax.swing.JFrame {
     ArrayList<Aeroporto> auxiliarAeroporto;
     ArrayList<Aviao> auxiliarAviao;
     ArrayList<Voo> auxiliarVoo;
+     ArrayList<Voo> auxiliarVoo;
     private Login login;
     public void setLogin(Login l)
     {
@@ -69,6 +71,7 @@ public class cadastrosFrame extends javax.swing.JFrame {
 
         // para a inserção do voo
         initComponents();
+        
 
     }
 
@@ -132,8 +135,8 @@ public class cadastrosFrame extends javax.swing.JFrame {
         precoLabel = new javax.swing.JLabel();
         precoSpinner = new javax.swing.JSpinner();
         jPanel11 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        vendasComboBox = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -395,9 +398,9 @@ public class cadastrosFrame extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
@@ -414,7 +417,6 @@ public class cadastrosFrame extends javax.swing.JFrame {
                                         .addComponent(partidaSpinner, javax.swing.GroupLayout.Alignment.LEADING)))
                                 .addGap(0, 209, Short.MAX_VALUE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
@@ -577,28 +579,32 @@ public class cadastrosFrame extends javax.swing.JFrame {
 
         TabbedPane.addTab("Conexões", jPanel5);
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        vendasComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton1.setText("PAGO");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(276, Short.MAX_VALUE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(vendasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(291, 291, 291)
+                        .addComponent(jButton1)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(40, 40, 40)
+                .addComponent(vendasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140)
+                .addComponent(jButton1)
+                .addContainerGap(157, Short.MAX_VALUE))
         );
 
         TabbedPane.addTab("Vendas Efetuadas", jPanel11);
@@ -836,7 +842,8 @@ public class cadastrosFrame extends javax.swing.JFrame {
             break;
            
              case 5:
-                javax.swing.JLabel l = new javax.swing.JLabel();
+                // jList1 = new JList(voostr.toArray());
+                
 
                   
             break;
@@ -946,6 +953,7 @@ public class cadastrosFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> destinoComboBox;
     private javax.swing.JLabel fabricanteLabel;
     private javax.swing.JTextField fabricanteTextField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -959,7 +967,6 @@ public class cadastrosFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -971,7 +978,6 @@ public class cadastrosFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner livresSpinner;
     private javax.swing.JLabel modeloLabel;
     private javax.swing.JTextField modeloTextField;
@@ -983,5 +989,6 @@ public class cadastrosFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner precoSpinner;
     private javax.swing.JSpinner quantidadeSpinner;
     private javax.swing.JComboBox<String> rotaComboBox;
+    private javax.swing.JComboBox vendasComboBox;
     // End of variables declaration//GEN-END:variables
 }

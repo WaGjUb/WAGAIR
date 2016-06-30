@@ -61,12 +61,23 @@ public class compraFrame extends javax.swing.JFrame {
         resultadoConexao = dc.getConexao();
         
         for (Conexao auxc : resultadoConexao) {
+            boolean invalida = true;
+            for (Voo v : auxc.getVoo())
+            {
+                if (v.getAssentosLivres()<=0)
+                {
+                    invalida = false;
+                }
+            }
             Voo first = auxc.getVoo().get(0);
             Voo last = auxc.getVoo().get(auxc.getVoo().size()-1);
             
-                        
+            
+                        if (invalida == true)
+                        {
                         strConexao.add(first.getRota().getOrigem().getNome() + " -> " + last.getRota().getDestino().getNome() + " - " + first.getDataPartida().getTime() + " - " + last.getDataChegada().getTime()); 
-        }
+                        }
+            }
         
               
                          

@@ -270,19 +270,26 @@ public class mainFrame extends javax.swing.JFrame {
             ArrayList<Conexao> resultadoConexao = new ArrayList<>();
             
             resultadoConexao = dc.getConexao();
-            
+            ArrayList<Conexao> enviar = new ArrayList<>();
             for (Conexao aux : resultadoConexao)
             {
+                /* exibePesquisa panel = new exibePesquisa();
+              panel.setConexao(enviar);
+              panel.setVisible(true);*/
                 if (aux.getVooInDate(c, ro, rd) == true)
                 {
-                    System.out.println("Existe");
+                 /*   System.out.println("Existe");
+                    enviar.add(aux);
+                     exibePesquisa panel = new exibePesquisa();
+              panel.setConexao(enviar);
+              panel.setVisible(true);*/
                 }
                 else
                 {
                     System.out.println("NAO Existe");
                 }
             }
-      
+             
         }
         }
         catch (Exception e)
