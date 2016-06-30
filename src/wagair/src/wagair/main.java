@@ -6,6 +6,7 @@
 package wagair;
 
 import Daos.DaoEndereco;
+import frames.mainFrame;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -22,7 +23,9 @@ public class main {
     public static void main(String[] args) throws ClassNotFoundException, Exception {
         // TODO code application logic here
         
-  
+        mainFrame m = new mainFrame();
+        m.setVisible(true);
+  /*
    Calendar mdata = Calendar.getInstance(); 
     System.out.println(mdata.getTime());
     Date aux = mdata.getTime();
@@ -32,6 +35,6 @@ public class main {
     Endereco e = new Endereco("rua teste dois", 18, "01625380");
     DaoEndereco d = new DaoEndereco(e);
     d.insertEndereco();
-
+*/
     }
 }

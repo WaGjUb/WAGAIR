@@ -23,13 +23,13 @@ public class Negociacao {
     private Item item;
     private int id = -1;
     
-    Negociacao(Calendar dataNegociacao, Item item, Cliente cliente, Vendedor vendedor)
+    public Negociacao(Item item, Cliente cliente, Vendedor vendedor, float total)
     {
-        this.dataNegociacao = dataNegociacao;
+        this.dataNegociacao = Calendar.getInstance();
         this.item = item;
         this.cliente = cliente;
         this.vendedor = vendedor;
-        this.total = this.item.getValorTotal();
+        this.total = total;
     }
     
       public boolean setID(int id)

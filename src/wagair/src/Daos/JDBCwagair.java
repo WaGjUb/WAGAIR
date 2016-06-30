@@ -66,6 +66,24 @@ public class JDBCwagair {
             } catch (SQLException e){}
         }         
     }
+    
+    public void closeConnection(Connection c, PreparedStatement ps){
+    
+
+        
+        
+         if (ps != null){
+            try {
+                ps.close();
+            } catch (SQLException e){}
+        }
+              
+        if (c != null){
+            try {
+                c.close();
+            } catch (SQLException e){}
+        }         
+    }
     }
     
 

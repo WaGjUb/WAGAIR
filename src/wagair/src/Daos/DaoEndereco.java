@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import wagair.Aviao;
 import wagair.Endereco;
 
 
@@ -37,6 +38,47 @@ public class DaoEndereco {
             this.complemento = e.getComplemento();
                                   
     }
+
+    DaoEndereco() throws SQLException, ClassNotFoundException {
+        this.c = new JDBCwagair();
+    }
+    
+    public Endereco getEnderecoByID(int searchID) throws SQLException, ClassNotFoundException, Exception
+   {
+        
+        
+        Connection myConn = this.c.getConnection();     
+
+         String sql = "select * from endereco where id = ?";
+
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, searchID);
+                
+        ResultSet myRS = stmt.executeQuery();
+
+        if (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            String rua = myRS.getString("rua");
+            int numero = myRS.getInt("numero");
+            String cep = myRS.getString("CEP");
+            String complemento = myRS.getString("complemento");
+            //try {
+            //    int companhiaID = myRS.getInt("companhiaID");
+              
+           // }
+           // catch(Exception e) {
+                Endereco aux = new Endereco(rua, numero, cep, complemento);
+           // }
+        //}
+            
+            aux.setID(id);          
+            return aux;
+        }
+       else
+        {
+            return null;
+        }
+   }
  //retorna o ID gerado 
     public int insertEndereco() throws SQLException, Exception
     {

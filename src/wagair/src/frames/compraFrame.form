@@ -23,12 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="comprarButton" min="-2" pref="173" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -38,32 +33,18 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="voo3Label" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="conexao3ComboBox" min="-2" pref="262" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="voo2Label" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="conexao2ComboBox" min="-2" pref="262" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="VooxLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="conexaoComboBox" min="-2" pref="262" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="VooxLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="qnt1Spinner" pref="58" max="32767" attributes="0"/>
-                          <Component id="qnt2Spinner" max="32767" attributes="0"/>
-                          <Component id="qnt3Spinner" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="conexaoComboBox" pref="537" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="qnt1Spinner" min="-2" pref="58" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="234" max="-2" attributes="0"/>
+                      <Component id="comprarButton" min="-2" pref="173" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -76,19 +57,7 @@
                   <Component id="conexaoComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="qnt1Spinner" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="voo2Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="conexao2ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="qnt2Spinner" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="voo3Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="conexao3ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="qnt3Spinner" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="49" max="32767" attributes="0"/>
+              <EmptySpace pref="34" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="valTotalLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="valorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -105,21 +74,19 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Comprar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comprarButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="VooxLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Voo1:"/>
+        <Property name="text" type="java.lang.String" value="Voo:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="conexaoComboBox">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel(strConexao.toArray())" type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -139,57 +106,10 @@
         <Property name="text" type="java.lang.String" value="0,00"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="voo2Label">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Voo2:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="conexao2ComboBox">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="conexao2ComboBoxActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="voo3Label">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Voo3:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="conexao3ComboBox">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="conexao3ComboBoxActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JSpinner" name="qnt1Spinner">
-    </Component>
-    <Component class="javax.swing.JSpinner" name="qnt2Spinner">
-    </Component>
-    <Component class="javax.swing.JSpinner" name="qnt3Spinner">
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="qnt1SpinnerStateChanged"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

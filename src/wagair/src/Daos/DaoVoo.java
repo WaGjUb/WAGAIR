@@ -51,6 +51,44 @@ public class DaoVoo {
 
     }
     
+    public Voo getVooByID(int searchID) throws SQLException, ClassNotFoundException
+   {
+        
+        
+        Connection myConn = this.c.getConnection();     
+
+         String sql = "select * from voo where id = ?";
+
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, searchID);
+                
+        ResultSet myRS = stmt.executeQuery();
+
+        if (myRS.next()) {
+                int id = Integer.parseInt(myRS.getString("id"));
+            java.sql.Timestamp dataPartida = java.sql.Timestamp.valueOf(myRS.getString("dataPartida"));
+            java.sql.Timestamp dataChegada = java.sql.Timestamp.valueOf(myRS.getString("dataChegada"));
+            int assentosLivres = Integer.parseInt(myRS.getString("assentosLivres"));
+            int rotaID = Integer.parseInt(myRS.getString("rotaID"));
+            int aviaoID = Integer.parseInt(myRS.getString("aviaoID"));
+            DaoRota dr = new DaoRota();
+            Rota rota = dr.getRotasByID(rotaID);
+            DaoAviao da = new DaoAviao();
+            Aviao aviao = da.getAvioesByID(aviaoID);
+            Calendar calPartida = Calendar.getInstance();
+            Calendar calChegada = Calendar.getInstance();
+            calPartida.setTime(new Date(dataPartida.getTime()));
+            calChegada.setTime(new Date(dataChegada.getTime()));
+            Voo aux = new Voo(calPartida, calChegada, aviao, assentosLivres, rota);
+            aux.setID(id);                      
+            return aux;
+        }
+       else
+        {
+            return null;
+        }
+   }
+    
     public ArrayList<Voo> getVoos() throws SQLException, ClassNotFoundException
    {
         ArrayList<Voo> resultado = new ArrayList<>();
@@ -81,6 +119,83 @@ public class DaoVoo {
        
        return resultado;
    }
+    
+     public int getAssentosLivresByVooID(int searchID) throws SQLException, ClassNotFoundException
+   {
+        
+        
+        Connection myConn = this.c.getConnection();     
+
+         String sql = "select assentosLivres from voo where aviaoID = ?";
+
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, searchID);
+                
+        ResultSet myRS = stmt.executeQuery();
+
+        if (myRS.next()) {
+            int qtd = Integer.parseInt(myRS.getString("assentosLivres"));
+
+            //try {
+            //    int companhiaID = myRS.getInt("companhiaID");
+              
+           // }
+           // catch(Exception e) {
+           // }
+        //}
+                  c.closeConnection(myConn, myRS, stmt);
+            return qtd;
+        }
+       else
+        {
+            c.closeConnection(myConn, myRS, stmt);
+            return -1;
+        }
+   }
+    
+    public int updateVooQtdLivre(int qtd, int vooID) throws SQLException
+    {
+        
+        Connection myConn = this.c.getConnection();
+        // Statement myStmt = myConn.createStatement();
+        
+         String sql = "UPDATE voo "+
+                 "SET assentosLivres = assentosLivres-? "+
+                 "WHERE id = ?";
+                   
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, qtd);
+         stmt.setInt(2, vooID);
+         
+         stmt.executeUpdate();
+
+         c.closeConnection(myConn, stmt);
+         
+     /*    //geraPassagens
+         for (int i = 0; i < this.assentosLivres; i++)
+         {
+             try{
+             Passagem p = new Passagem(this.voo, String.valueOf(i));
+             DaoPassagem dp = new DaoPassagem(p);
+             dp.insertPassagem();
+         }
+            catch (Exception e)
+               {
+                   JOptionPane.showMessageDialog(null, "erro ao gerar passagens para voo");
+                  
+               }
+         }*/
+         
+         return (this.ID);
+         
+         //ResultSet rs = preparedStatement.executeQuery();
+       // myStmt.executeUpdate("insert * from valet");
+        
+    }
+    
+       
+    
+    
      public int insertAviao() throws SQLException
     {
         

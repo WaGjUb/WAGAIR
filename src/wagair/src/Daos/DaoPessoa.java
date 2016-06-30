@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import wagair.Aeroporto;
+import wagair.Endereco;
+import wagair.Login;
 import wagair.Pessoa;
 
 /**
@@ -50,10 +52,10 @@ public class DaoPessoa {
        this.c = new JDBCwagair();
     }
     
-        public int getPessoaIDByLoginID(int searchID) throws SQLException
-   {
-        
-        
+    
+    
+   public int getPessoaIDByLoginID(int searchID) throws SQLException
+    {
         Connection myConn = this.c.getConnection();     
 
          String sql = "select id from pessoa where loginID = ?";
@@ -64,13 +66,56 @@ public class DaoPessoa {
         ResultSet myRS = stmt.executeQuery();
 
         if (myRS.next()) {
-            int id = Integer.parseInt(myRS.getString("id"));
+            int pessoaID = Integer.parseInt(myRS.getString("id"));
+
+
+
+            return pessoaID;
             
-            return id;
+            
         }
        else
         {
             return -1;
+        }
+    }
+        
+        public Pessoa getPessoaByID(int searchID) throws SQLException, ClassNotFoundException, Exception
+   {
+        
+        
+        Connection myConn = this.c.getConnection();     
+
+         String sql = "select * from pessoa where id = ?";
+
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, searchID);
+                
+        ResultSet myRS = stmt.executeQuery();
+
+        if (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            String nome = myRS.getString("nome");
+            String sobrenome = myRS.getString("sobrenome");
+            String telefone = myRS.getString("telefone");
+            String celular = myRS.getString("celular");
+            int enderecoID = Integer.parseInt(myRS.getString("enderecoID"));
+            int loginID = Integer.parseInt(myRS.getString("loginID"));
+
+            DaoEndereco de = new DaoEndereco();
+            DaoLogin dl = new DaoLogin();
+            
+            Endereco end = de.getEnderecoByID(enderecoID);
+            Login login = dl.getloginByID(loginID);
+            Pessoa pessoa = new Pessoa(nome, sobrenome, telefone, celular, end, login);
+            pessoa.setID(id);
+            return pessoa;
+            
+            
+        }
+       else
+        {
+            return null;
         }
    }
    

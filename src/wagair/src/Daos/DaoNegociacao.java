@@ -35,7 +35,7 @@ public class DaoNegociacao {
             this.total = n.getTotal();
             this.status = n.isStatus();            
             this.clienteID = n.getCliente().getID();
-            this.clienteID = n.getVendedor().getID();
+            this.vendedorID = n.getVendedor().getID();
             this.itemID = n.getItem().getID();
     }
     

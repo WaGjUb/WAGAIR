@@ -14,25 +14,25 @@ import javax.swing.JOptionPane;
  */
 public class Item {
     
-    private ArrayList<Conexao> conexao = new ArrayList<>();
+    private ArrayList<Passagem> passagem = new ArrayList<>();
     private int id = -1;
     
     
-    public Item(ArrayList<Conexao> conexao)
+    public Item(ArrayList<Passagem> passagem)
     {
-        this.conexao = conexao;
+        this.passagem = passagem;
     }
 
-    public ArrayList<Conexao> getConexao() {
-        return conexao;
+    public ArrayList<Passagem> getPassagem() {
+        return passagem;
     }
     
-    public boolean addConexao(Conexao conexao)
+    public boolean addPassagem(Passagem passagem)
     {
      
         try
         {
-            this.conexao.add(conexao);
+            this.passagem.add(passagem);
             return(true);
         }
             catch(Exception e)
@@ -42,12 +42,12 @@ public class Item {
     
     }
     
-      public boolean removerConexao(Conexao conexao)
+      public boolean removerPassagem(Passagem passagem)
     {
      
         try
         {
-            this.conexao.remove(conexao);
+            this.passagem.remove(passagem);
             return(true);
         }
             catch(Exception e)
@@ -57,15 +57,7 @@ public class Item {
     
     }
        
-       public float getValorTotal()
-       {
-           float total = 0;
-           for (Conexao con : conexao)
-           {
-               total = total + con.getPreco();
-           }
-           return(total);
-       }
+       
        
        public boolean setID(int id)
         {

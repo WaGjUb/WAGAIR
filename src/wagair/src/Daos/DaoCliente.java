@@ -33,6 +33,64 @@ private Cliente cliente;
         this.c = new JDBCwagair();
     }
     
+    public int getClienteIDByPessoaID(int searchID) throws SQLException
+    
+        {
+        
+        
+        Connection myConn = this.c.getConnection();     
+
+         String sql = "select id from cliente where pessoaID = ?";
+
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, searchID);
+                
+        ResultSet myRS = stmt.executeQuery();
+
+        if (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            
+            return id;
+        }
+       else
+        {
+            return -1;
+        }
+   }
+    
+    
+    public Cliente getClienteByPessoaID(int pessoaID) throws SQLException, ClassNotFoundException, Exception
+    
+        {
+        
+
+        Connection myConn = this.c.getConnection();     
+
+         String sql = "select * from cliente where pessoaID = ?";
+
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, pessoaID);
+
+                
+        ResultSet myRS = stmt.executeQuery();
+
+        if (myRS.next()) {
+        DaoPessoa dp = new DaoPessoa();
+        Pessoa p = dp.getPessoaByID(pessoaID);
+            int id = Integer.parseInt(myRS.getString("id"));
+            String cpf = myRS.getString("CPF");
+            Cliente c = new Cliente(p.getNome(), p.getSobrenome(), cpf, p.getTelefone(), p.getCelular(), p.getEndereco(), p.getLogin());
+            c.setID(id);
+            return c;
+        }
+       else
+        {
+            return null;
+        }
+   }
+    
+    
+    
    public int insertCliente() throws SQLException
     {
         int IDCLIENTE;

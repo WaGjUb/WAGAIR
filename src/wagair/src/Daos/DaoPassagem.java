@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import wagair.Aviao;
 import wagair.Passagem;
 
 /**
@@ -30,6 +32,51 @@ public class DaoPassagem {
             this.numAssento = p.getAssento();
     }
       
+            public DaoPassagem(int conID) throws SQLException, ClassNotFoundException, Exception{
+            this.c = new JDBCwagair();
+            this.conexaoID = conID;
+    }
+      
+        public String getUltimoAssento() throws SQLException
+        {
+               
+        ArrayList<Aviao> resultado = new ArrayList<>();
+        
+        Connection myConn = this.c.getConnection();       
+        Statement myStmt = myConn.createStatement();
+        
+        String sql = "select max(numAssento) as resultado from passagem where conexaoID = ?";
+
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, this.conexaoID);
+                
+        ResultSet myRS = stmt.executeQuery();
+        String assento = "0";
+
+        if (myRS.next()) {
+            assento = myRS.getString("resultado");
+
+            //try {
+            //    int companhiaID = myRS.getInt("companhiaID");
+              
+           // }
+           // catch(Exception e) {
+            if (assento == null)
+                    {
+                        System.out.println("Era NULL");
+                        assento = "0";
+                    }
+            return assento;
+                
+           // }
+        //}
+            
+        }
+       
+       return assento;
+        }
+        
+      
           public int insertPassagem() throws SQLException
     {
         
@@ -42,8 +89,7 @@ public class DaoPassagem {
          PreparedStatement stmt = myConn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
          stmt.setString(1, this.numAssento);
          stmt.setInt(2, this.conexaoID);
-
-         
+        
          stmt.executeUpdate();
          ResultSet rs = stmt.getGeneratedKeys();
          rs.next();

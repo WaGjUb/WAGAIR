@@ -20,19 +20,26 @@ import wagair.Login;
 
 
 public class DaoLogin {
-    JDBCwagair c; //conexão
+    private JDBCwagair c; //conexão
     private String usuario;
     private String senha;
     private int ID;
     private Login log;
 
-   public DaoLogin(Login l) throws SQLException, ClassNotFoundException, Exception{
+   public DaoLogin(Login l) throws SQLException, ClassNotFoundException, Exception {
             this.c = new JDBCwagair();
             
             this.usuario = l.getUsuario();
             this.senha = l.getSenha();           
             this.log = l;
     }
+   
+   public DaoLogin() throws SQLException, ClassNotFoundException
+   {
+       this.c = new JDBCwagair();
+   }
+
+   
    
    public Login getloginByUser(String user) throws SQLException, ClassNotFoundException, Exception
    {
@@ -44,6 +51,42 @@ public class DaoLogin {
 
          PreparedStatement stmt = myConn.prepareStatement(sql);
          stmt.setString(1, user);
+                
+        ResultSet myRS = stmt.executeQuery();
+
+        if (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            String usuario = myRS.getString("usuario");
+            String senha = myRS.getString("senha");
+            
+            //try {
+            //    int companhiaID = myRS.getInt("companhiaID");
+              
+           // }
+           // catch(Exception e) {
+                Login aux = new Login(usuario, senha);
+           // }
+        //}
+            
+            aux.setID(id);          
+            return aux;
+        }
+       else
+        {
+            return null;
+        }
+   }
+   
+   public Login getloginByID(int loginID) throws SQLException, ClassNotFoundException, Exception
+   {
+        
+        
+        Connection myConn = this.c.getConnection();     
+
+         String sql = "select * from login where id = ?";
+
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, loginID);
                 
         ResultSet myRS = stmt.executeQuery();
 

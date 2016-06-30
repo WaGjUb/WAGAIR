@@ -5,6 +5,31 @@
  */
 package frames;
 
+import Daos.DaoCliente;
+import Daos.DaoConexao;
+import Daos.DaoItem;
+import Daos.DaoNegociacao;
+import Daos.DaoPassagem;
+import Daos.DaoPessoa;
+import Daos.DaoVendedor;
+import Daos.DaoVoo;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import wagair.Aviao;
+import wagair.Cliente;
+import wagair.Conexao;
+import wagair.Item;
+import wagair.Login;
+import wagair.Negociacao;
+import wagair.Passagem;
+import wagair.Pessoa;
+import wagair.Vendedor;
+import wagair.Voo;
+
 /**
  *
  * @author a1625381
@@ -14,9 +39,44 @@ public class compraFrame extends javax.swing.JFrame {
     /**
      * Creates new form compraFrame
      */
-    public compraFrame() {
-        initComponents();
+    ArrayList<String> strConexao = new ArrayList<>();
+    ArrayList<Conexao> resultadoConexao;
+    Login login;
+    
+     public void setLogin(Login l)
+    {
+        this.login = l;
+    }
+   
+    
+    public compraFrame() throws SQLException, ClassNotFoundException, Exception {
+     
         
+        
+         
+        
+        
+        DaoConexao dc = new DaoConexao();
+        
+        resultadoConexao = dc.getConexao();
+        
+        for (Conexao auxc : resultadoConexao) {
+            Voo first = auxc.getVoo().get(0);
+            Voo last = auxc.getVoo().get(auxc.getVoo().size()-1);
+            
+                        
+                        strConexao.add(first.getRota().getOrigem().getNome() + " -> " + last.getRota().getDestino().getNome() + " - " + first.getDataPartida().getTime() + " - " + last.getDataChegada().getTime()); 
+        }
+        
+              
+                         
+               
+                   
+            
+        
+        
+                initComponents();
+
     }
 
     /**
@@ -30,24 +90,23 @@ public class compraFrame extends javax.swing.JFrame {
 
         comprarButton = new javax.swing.JButton();
         VooxLabel = new javax.swing.JLabel();
-        conexaoComboBox = new javax.swing.JComboBox<>();
+        conexaoComboBox = new javax.swing.JComboBox<String>();
         valTotalLabel = new javax.swing.JLabel();
         valorLabel = new javax.swing.JLabel();
-        voo2Label = new javax.swing.JLabel();
-        conexao2ComboBox = new javax.swing.JComboBox<>();
-        voo3Label = new javax.swing.JLabel();
-        conexao3ComboBox = new javax.swing.JComboBox<>();
         qnt1Spinner = new javax.swing.JSpinner();
-        qnt2Spinner = new javax.swing.JSpinner();
-        qnt3Spinner = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         comprarButton.setText("Comprar");
+        comprarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comprarButtonActionPerformed(evt);
+            }
+        });
 
-        VooxLabel.setText("Voo1:");
+        VooxLabel.setText("Voo:");
 
-        conexaoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        conexaoComboBox.setModel(new javax.swing.DefaultComboBoxModel(strConexao.toArray()));
         conexaoComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 conexaoComboBoxActionPerformed(evt);
@@ -58,21 +117,9 @@ public class compraFrame extends javax.swing.JFrame {
 
         valorLabel.setText("0,00");
 
-        voo2Label.setText("Voo2:");
-
-        conexao2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        conexao2ComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                conexao2ComboBoxActionPerformed(evt);
-            }
-        });
-
-        voo3Label.setText("Voo3:");
-
-        conexao3ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        conexao3ComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                conexao3ComboBoxActionPerformed(evt);
+        qnt1Spinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                qnt1SpinnerStateChanged(evt);
             }
         });
 
@@ -80,10 +127,6 @@ public class compraFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(comprarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(108, 108, 108))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -93,25 +136,15 @@ public class compraFrame extends javax.swing.JFrame {
                         .addComponent(valorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(voo3Label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(conexao3ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(voo2Label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(conexao2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(VooxLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(conexaoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(VooxLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(qnt1Spinner, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                            .addComponent(qnt2Spinner)
-                            .addComponent(qnt3Spinner))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(conexaoComboBox, 0, 537, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(qnt1Spinner, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(234, 234, 234)
+                        .addComponent(comprarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,17 +154,7 @@ public class compraFrame extends javax.swing.JFrame {
                     .addComponent(VooxLabel)
                     .addComponent(conexaoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(qnt1Spinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(voo2Label)
-                    .addComponent(conexao2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(qnt2Spinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(voo3Label)
-                    .addComponent(conexao3ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(qnt3Spinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valTotalLabel)
                     .addComponent(valorLabel))
@@ -144,16 +167,157 @@ public class compraFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void conexaoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conexaoComboBoxActionPerformed
+
+  try{
+      int qtd1;
+      int idx1;
+      float total = 0;
+       String strExibe;
+    qtd1 = Integer.parseInt(String.valueOf(qnt1Spinner.getValue()));
+    idx1 = conexaoComboBox.getSelectedIndex();
+    total += qtd1 * resultadoConexao.get(idx1).getPreco();
+    strExibe = String.valueOf(total);
+    if (strExibe.charAt(strExibe.length()-2) == '.')
+    {
+        strExibe += '0';
+    }
+    strExibe.replace('.', ',');
+    valorLabel.setText(strExibe);
+    
  
+    
+  }
+  catch (Exception e)
+  {
+      JOptionPane.showMessageDialog(null, "valor da quantidade inválido");
+  }
     }//GEN-LAST:event_conexaoComboBoxActionPerformed
 
-    private void conexao2ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conexao2ComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_conexao2ComboBoxActionPerformed
+    private void qnt1SpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_qnt1SpinnerStateChanged
+       
+          try{
+      int qtd1;
+      int idx1;
+      float total = 0;
+      String strExibe;
+    qtd1 = Integer.parseInt(String.valueOf(qnt1Spinner.getValue()));
+    idx1 = conexaoComboBox.getSelectedIndex();
+    total += qtd1 * resultadoConexao.get(idx1).getPreco();
+    strExibe = String.valueOf(total);
+    if (strExibe.charAt(strExibe.length()-2) == '.')
+    {
+        strExibe += '0';
+    }
+    strExibe.replace('.', ',');
+    valorLabel.setText(strExibe);
+  }
+  catch (Exception e)
+  {
+      JOptionPane.showMessageDialog(null, "valor da quantidade inválido");
+  }
+    }//GEN-LAST:event_qnt1SpinnerStateChanged
 
-    private void conexao3ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conexao3ComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_conexao3ComboBoxActionPerformed
+    private void comprarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprarButtonActionPerformed
+        ArrayList<Passagem> passagensGeradas = new ArrayList<>();
+        
+     int idx1 = conexaoComboBox.getSelectedIndex();;
+     int proximoAssento;
+     
+     Conexao con = resultadoConexao.get(idx1);
+     
+     
+                
+        
+        try
+        {
+            ArrayList<Passagem> passagens = new ArrayList<>();
+            DaoPassagem dp = new DaoPassagem(con.getID());
+            proximoAssento = Integer.parseInt(dp.getUltimoAssento()) + 1; 
+            int qtd1 = Integer.parseInt(String.valueOf(qnt1Spinner.getValue()));
+            //verifica se há lugares
+            boolean verifica = true;
+     
+            for (Voo vaux  : con.getVoo())
+            {
+                if (vaux.getAssentosLivres()<qtd1)
+                {
+                    verifica = false;
+                    JOptionPane.showMessageDialog(null, "Não há "+qtd1+" assentos livres para esta viagem");
+                    break;
+                }
+                
+            }
+     
+            if (verifica == true)
+            {                
+                try {
+                for (int i=0; i<qtd1; i++)
+                {
+                    Passagem passagemAux = new Passagem(resultadoConexao.get(idx1),String.valueOf(proximoAssento));
+                    DaoPassagem daop = new DaoPassagem(passagemAux);
+                    daop.insertPassagem();
+                    passagemAux.getID(); ///////////////////////////////////
+                    passagens.add(passagemAux);
+                    proximoAssento++;
+                }
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Erro ao gerar id das passagens");
+                }
+                 //insere o item
+                Item item = new Item(passagens);
+                
+
+                DaoItem di = new DaoItem(item);
+                di.insertItem();
+                
+                
+                // cria e insere negociacao
+                int pessoaClienteIDAUX;
+                int pessoaVendedorIDAUX;
+                float total = 0;
+                DaoCliente daoCliente = new DaoCliente();
+                DaoVendedor daoVendedor = new DaoVendedor();
+                DaoPessoa daoPessoa = new DaoPessoa();
+                
+                try{
+                pessoaClienteIDAUX = daoPessoa.getPessoaIDByLoginID(this.login.getID());
+                pessoaVendedorIDAUX = daoPessoa.getPessoaIDByLoginID(con.getLoginVendedor().getID());
+                 Cliente cliente = daoCliente.getClienteByPessoaID(pessoaClienteIDAUX);
+                 Vendedor vendedor = daoVendedor.getVendedorByPessoaID(pessoaVendedorIDAUX);
+                                 total += qtd1 * resultadoConexao.get(idx1).getPreco();
+                                 try {
+                Negociacao negociacao = new Negociacao(item, cliente, vendedor, total);
+                
+                DaoNegociacao daoNegociacao = new DaoNegociacao(negociacao);
+               
+                daoNegociacao.insertNegociacao();
+                 JOptionPane.showMessageDialog(null, "Negociação efetuada com sucesso");
+                                 }
+                                 catch (Exception e)
+                                 {
+                                     System.out.println("Erro ao criar a negociacao");
+                                      e.printStackTrace();
+                                 }
+                                     }
+                catch (Exception e)
+                {
+                    System.out.println("Erro ao gerar o cliente e vendedor para negociacao");
+                    e.printStackTrace();
+                }
+                 
+
+            }
+        }
+        catch (Exception e )
+        {
+            JOptionPane.showMessageDialog(null, "Erro ao gerar número do assento");
+            e.printStackTrace();
+        }
+       
+        
+    }//GEN-LAST:event_comprarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,7 +349,16 @@ public class compraFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new compraFrame().setVisible(true);
+                try {               
+                    new compraFrame().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(compraFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(compraFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
+                
             }
         });
     }
@@ -193,15 +366,9 @@ public class compraFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel VooxLabel;
     private javax.swing.JButton comprarButton;
-    private javax.swing.JComboBox<String> conexao2ComboBox;
-    private javax.swing.JComboBox<String> conexao3ComboBox;
     private javax.swing.JComboBox<String> conexaoComboBox;
     private javax.swing.JSpinner qnt1Spinner;
-    private javax.swing.JSpinner qnt2Spinner;
-    private javax.swing.JSpinner qnt3Spinner;
     private javax.swing.JLabel valTotalLabel;
     private javax.swing.JLabel valorLabel;
-    private javax.swing.JLabel voo2Label;
-    private javax.swing.JLabel voo3Label;
     // End of variables declaration//GEN-END:variables
 }

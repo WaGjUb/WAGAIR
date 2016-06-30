@@ -111,6 +111,8 @@ create table IF NOT EXISTS conexao
  id integer NOT NULL AUTO_INCREMENT,
  preco float,
  quantidade integer,
+ loginID integer,
+ foreign key (loginID) references login(id),
  primary key (id)
 );
 
@@ -147,10 +149,10 @@ create table IF NOT EXISTS itens -- - link de negociação com conexoes
 create table IF NOT EXISTS link_item
 (
  id integer NOT NULL AUTO_INCREMENT,
- conexaoID integer,
+ passagemID integer,
  itensID integer,
  primary key (id),
- foreign key (conexaoID) references conexao(id),
+ foreign key (passagemID) references passagem(id),
  foreign key (itensID) references itens(id)
 );
 

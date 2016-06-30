@@ -26,6 +26,7 @@ public class comLogin extends javax.swing.JPanel {
     public void setLogin(Login l) throws Exception
     {
         this.login = l;
+       // System.out.println("id login: " + l.getID());
         nomeLabel.setText(l.getUsuario());
     }
     public comLogin() {
@@ -80,14 +81,36 @@ public class comLogin extends javax.swing.JPanel {
         
         try {
             int pessoaID;
+            int clienteID;
             DaoPessoa dp;
             dp = new DaoPessoa();
             pessoaID = dp.getPessoaIDByLoginID(login.getID());
-            System.out.println("id de pessoa conseguido");
+            //System.out.println("id pessoa" + pessoaID);
+            if (pessoaID != -1)
+            {
+            System.out.println("id de pessoa recuperado");
             DaoCliente dc;
             dc = new DaoCliente();
-            dc.getClienteIDByPessoaID(pessoaID);
-            
+            clienteID = dc.getClienteIDByPessoaID(pessoaID);
+            System.out.println("ID retornado: " + clienteID);
+                if (clienteID == -1) // se não for cliente
+                {
+                    cadastrosFrame panel = new cadastrosFrame();
+                    panel.setLogin(this.login);
+                    panel.setVisible(true);
+
+                }
+                else
+                {
+                    compraFrame panel = new compraFrame();
+                    panel.setLogin(this.login);
+                    panel.setVisible(true);
+                }
+            }
+              else
+            {
+                System.out.println("Erro, ao recuperar id de pessoa");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(comLogin.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -97,8 +120,7 @@ public class comLogin extends javax.swing.JPanel {
         }
         
         
-                              compraFrame panel = new compraFrame();
-        panel.setVisible(true);
+
     }//GEN-LAST:event_nomeLabelMouseClicked
 
 

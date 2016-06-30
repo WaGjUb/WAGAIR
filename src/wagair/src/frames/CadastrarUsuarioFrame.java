@@ -247,6 +247,7 @@ public class CadastrarUsuarioFrame extends javax.swing.JFrame {
         {
             //System.out.printf(numeroTextField.getText());
             JOptionPane.showMessageDialog(null, "Erro, digite um numero válido");
+            
         }
                System.out.printf(numeroTextField.getText()); 
         String cep = CEPTextField.getSelectedText();
@@ -277,8 +278,8 @@ public class CadastrarUsuarioFrame extends javax.swing.JFrame {
             Cliente cliente = new Cliente(nome, sobrenome, documento, telefone, celular, endereco, login);
             try {
                 DaoCliente dc = new DaoCliente(cliente);
-                DaoPessoa dp = new DaoPessoa(cliente);
-                dp.insertPessoa();
+              //  DaoPessoa dp = new DaoPessoa(cliente);
+             //   dp.insertPessoa();
                 dc.insertCliente();
                 JOptionPane.showMessageDialog(null, "Dados inseridos");
             } catch (ClassNotFoundException ex) {
@@ -294,8 +295,9 @@ public class CadastrarUsuarioFrame extends javax.swing.JFrame {
             Vendedor vendedor = new Vendedor(nome, sobrenome, documento, telefone, celular, endereco, login);
              try {
                 DaoVendedor dv = new DaoVendedor(vendedor);
-                DaoPessoa dp = new DaoPessoa(vendedor);
-                dp.insertPessoa();
+           //     DaoPessoa dp = new DaoPessoa(vendedor);
+           //     dp.insertPessoa();
+                
                 dv.insertVendedor();
                 JOptionPane.showMessageDialog(null, "Dados inseridos");
             } catch (ClassNotFoundException ex) {

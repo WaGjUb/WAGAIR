@@ -18,12 +18,15 @@ public class Conexao {
    private float preco;
    private ArrayList<Voo> voo; 
    private int quantidade;
+   private Login loginVendedor;
     
-   public Conexao (float preco, ArrayList<Voo> voo, int quantidade)
+   public Conexao (float preco, ArrayList<Voo> voo, int quantidade, Login loginVendedor)
     {
         this.preco = preco;
         this.voo = voo;
         this.quantidade = quantidade;
+        this.loginVendedor = loginVendedor;
+        
     }
     
        public Conexao (float preco)
@@ -45,6 +48,12 @@ public class Conexao {
         return quantidade;
     }
 
+    public Login getLoginVendedor() {
+        return loginVendedor;
+    }
+
+    
+    
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }

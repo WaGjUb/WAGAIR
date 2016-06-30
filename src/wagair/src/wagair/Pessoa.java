@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author a1625381
  */
-public abstract class Pessoa {
+public class Pessoa {
     private int id = -1;
     private String nome;
     private String sobrenome;

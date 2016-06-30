@@ -23,13 +23,13 @@ import wagair.Passagem;
 public class DaoItem {
     private JDBCwagair c;
     private Item item;
-    private ArrayList<Conexao> conexao;
+    private ArrayList<Passagem> passagem;
     private int ID;
     
     public DaoItem(Item i) throws SQLException, ClassNotFoundException, Exception{
             this.c = new JDBCwagair();
             this.item = i;
-            this.conexao = i.getConexao();
+            this.passagem = i.getPassagem();
     }
     
     public int insertItem() throws SQLException, Exception
@@ -52,13 +52,13 @@ public class DaoItem {
          this.item.setID(this.ID);
          
          sql = "INSERT INTO link_item "+
-                 "(conexaoID, itensID) "+
+                 "(passagemID, itensID) "+
                    "values (?, ?)";
             stmt = myConn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
           
-         for (Conexao con : this.conexao)
+         for (Passagem pas : this.passagem)
          {
-            stmt.setInt(1, con.getID());
+            stmt.setInt(1, pas.getID());
             stmt.setInt(2, this.ID);
             stmt.executeUpdate();
          }

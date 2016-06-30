@@ -18,7 +18,7 @@ public class Passagem {
     private int id = -1;
     
     
-   public Passagem(Voo voo, String assento)
+   public Passagem(Conexao conexao, String assento)
     {
         this.conexao = conexao;
         this.assento = assento;

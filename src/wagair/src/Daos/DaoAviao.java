@@ -106,9 +106,10 @@ public class DaoAviao {
             aux.setID(id);            
             resultado.add(aux);
         }
-       
-       return resultado;
+        return resultado;
    }
+        
+   
     
     public int insertAviao() throws SQLException
     {

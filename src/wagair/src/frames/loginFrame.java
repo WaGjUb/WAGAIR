@@ -123,7 +123,10 @@ public class loginFrame extends javax.swing.JFrame {
             {
                 if (cmp.getSenha().equals(login.getSenha()))
                 {
+                    login.setID(cmp.getID());
                     this.m.login(login);
+                    this.setVisible(false); //you can't see me!
+                    this.dispose(); //Destroy the JFrame object
                 }
                 else
                 {

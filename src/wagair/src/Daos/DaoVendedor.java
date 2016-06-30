@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import wagair.Cliente;
 import wagair.Pessoa;
 import wagair.Vendedor;
 
@@ -29,6 +30,40 @@ private Vendedor vendedor;
         this.CNPJ = vend.getCNPJ();
         this.vendedor = vend;
     }
+
+    public DaoVendedor() throws SQLException, ClassNotFoundException {
+        this.c = new JDBCwagair();
+    }
+    
+        public Vendedor getVendedorByPessoaID(int pessoaID) throws SQLException, ClassNotFoundException, Exception
+    
+        {
+        
+
+        Connection myConn = this.c.getConnection();     
+
+         String sql = "select * from vendedor where pessoaID = ?";
+
+         PreparedStatement stmt = myConn.prepareStatement(sql);
+         stmt.setInt(1, pessoaID);
+
+                
+        ResultSet myRS = stmt.executeQuery();
+
+        if (myRS.next()) {
+        DaoPessoa dp = new DaoPessoa();
+        Pessoa p = dp.getPessoaByID(pessoaID);
+            int id = Integer.parseInt(myRS.getString("id"));
+            String cnpj = myRS.getString("CNPJ");
+            Vendedor v = new Vendedor(p.getNome(), p.getSobrenome(), cnpj, p.getTelefone(), p.getCelular(), p.getEndereco(), p.getLogin());
+            v.setID(id);
+            return v;
+        }
+       else
+        {
+            return null;
+        }
+   }
     
     public int insertVendedor() throws SQLException
     {
