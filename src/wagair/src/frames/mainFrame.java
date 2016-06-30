@@ -5,13 +5,18 @@
  */
 package frames;
 
-import java.awt.Container;
+import Daos.DaoConexao;
+import Daos.DaoRota;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import wagair.Conexao;
 import wagair.Login;
+import wagair.Rota;
+import wagair.Voo;
 
 
 /**
@@ -19,10 +24,12 @@ import wagair.Login;
  * @author a1625381
  */
 public class mainFrame extends javax.swing.JFrame {
-    
+    semLogin semLogin1 = new semLogin();
+     
         public void logout() {
         comLogin1.setVisible(false);
         semLogin1.setVisible(true);
+         logoutButton.setVisible(false);
     }
     
         public void login(Login l) throws Exception {
@@ -30,7 +37,9 @@ public class mainFrame extends javax.swing.JFrame {
         comLogin1.setVisible(true);
         semLogin1.setVisible(false);
         comLogin1.setLogin(l);
+        logoutButton.setVisible(true);
         JOptionPane.showMessageDialog(null, "Login efetuado com sucesso");
+        
     }
     
     int anoInicial = 2010;
@@ -40,20 +49,18 @@ public class mainFrame extends javax.swing.JFrame {
      */
     
     ArrayList<String> arrayAnos = new ArrayList<String>();
-   
-
+    ArrayList<String> arrayOrigem = new ArrayList<>();
+    ArrayList<String> arrayDestino = new ArrayList<>();
+    ArrayList<Conexao> resultConexao = new ArrayList<>();
+    ArrayList<Rota> resultadoRotaOrigem = new ArrayList<>();
+    ArrayList<Rota> resultadoRotaDestino = new ArrayList<>();
 
     
  //   semLogin semlogin = new semLogin();
 
     
     
-    public mainFrame() {
-            arrayAnos.add("Ano");
-            for (int i = anoInicial; i <= (anoInicial+20); i++) {    
-                arrayAnos.add(String.valueOf(i));
-             }
-        initComponents();
+    public mainFrame() throws SQLException, ClassNotFoundException, Exception {
   //      c.repaint();
    //     c.removeAll();
   //  c.repaint();
@@ -62,7 +69,41 @@ public class mainFrame extends javax.swing.JFrame {
  //  c.add(semlogin);
   // semlogin.setVisible(true);
    
-logout();
+        
+            arrayAnos.add("Ano");
+            for (int i = anoInicial; i <= (anoInicial+20); i++) {    
+                arrayAnos.add(String.valueOf(i));
+             }
+            
+           
+        initComponents();
+        logoutButton.setVisible(false);
+        jPanel1.add(semLogin1);
+        semLogin1.setMain(this);
+        logout();
+        
+        DaoConexao dc = new DaoConexao();
+      //  DaoRota dr = new DaoRota();
+        resultConexao = dc.getConexao();
+        
+        
+        for (Conexao aux : resultConexao)
+        {
+            Voo v = aux.getVoo().get(0);
+            resultadoRotaOrigem.add(v.getRota());
+            
+        }
+        
+        
+        //resultadoRotaOrigem = dr.getRotasByOrigem();
+        arrayOrigem.add("Origem");
+        
+        //System.out.println(resultadoRotaOrigem.get(0).getDestino().getCidade());
+        for (Rota aux : resultadoRotaOrigem)
+        {
+            arrayOrigem.add(aux.getOrigem().getNome() + " - " + aux.getOrigem().getCidade());
+        }
+        origemComboBox.setModel(new javax.swing.DefaultComboBoxModel(arrayOrigem.toArray()));
     }
 
     /**
@@ -74,23 +115,37 @@ logout();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        origemTextField = new javax.swing.JTextField();
+        destinoComboBox = new javax.swing.JComboBox();
+        origemComboBox = new javax.swing.JComboBox();
         pesquisarButton = new javax.swing.JButton();
-        destinoTextField = new javax.swing.JTextField();
         diaComboBox = new javax.swing.JComboBox<String>();
         mesComboBox = new javax.swing.JComboBox<String>();
         anoComboBox = new javax.swing.JComboBox<String>();
         jPanel1 = new javax.swing.JPanel();
-        semLogin1 = new frames.semLogin(this);
+        logoutButton = new javax.swing.JButton();
         comLogin1 = new frames.comLogin();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        origemTextField.setText("Origem");
+        destinoComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Destino" }));
+        destinoComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                destinoComboBoxActionPerformed(evt);
+            }
+        });
+
+        origemComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                origemComboBoxActionPerformed(evt);
+            }
+        });
 
         pesquisarButton.setText("Pesquisar");
-
-        destinoTextField.setText("Destino");
+        pesquisarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisarButtonActionPerformed(evt);
+            }
+        });
 
         diaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dia", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         diaComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -114,41 +169,55 @@ logout();
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 5);
         flowLayout1.setAlignOnBaseline(true);
         jPanel1.setLayout(flowLayout1);
-        jPanel1.add(semLogin1);
-        jPanel1.add(comLogin1);
+
+        logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(logoutButton);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(78, 78, 78)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(destinoTextField)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(diaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(mesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(anoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(origemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(pesquisarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(44, Short.MAX_VALUE))
+                        .addComponent(comLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(diaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(12, 12, 12)
+                            .addComponent(mesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(anoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(origemComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(destinoComboBox, 0, 291, Short.MAX_VALUE)))
+                .addContainerGap(58, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pesquisarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(127, 127, 127))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(origemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(destinoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(comLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)))
+                .addComponent(origemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(destinoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(diaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -169,6 +238,119 @@ logout();
     private void anoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anoComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_anoComboBoxActionPerformed
+
+    private void pesquisarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarButtonActionPerformed
+      //String origem = origemTextField.getText();
+      //String destino = destinoTextField.getText();
+        try{
+            Rota ro = resultadoRotaOrigem.get(origemComboBox.getSelectedIndex()-1);
+             Rota rd = resultadoRotaDestino.get(destinoComboBox.getSelectedIndex()-1);
+            int dia = diaComboBox.getSelectedIndex();
+            int mes = mesComboBox.getSelectedIndex();
+            int ano = 0;
+ 
+            ano = Integer.parseInt(String.valueOf(anoComboBox.getSelectedItem()));
+
+            
+            if((dia == 0) || (mes == 0) || (ano == 0))
+            {
+                System.out.println("dia"+ dia + "mes" + mes + "ano" +ano);
+             JOptionPane.showMessageDialog(null, "Insira uma data válida");
+            }
+            else
+            {
+ 
+            Calendar c = Calendar.getInstance();
+            c.set(ano, mes, dia);
+            
+            System.out.println(c.getTime().getYear());
+            
+      
+            DaoConexao dc = new DaoConexao();
+            ArrayList<Conexao> resultadoConexao = new ArrayList<>();
+            
+            resultadoConexao = dc.getConexao();
+            
+            for (Conexao aux : resultadoConexao)
+            {
+                if (aux.getVooInDate(c, ro, rd) == true)
+                {
+                    System.out.println("Existe");
+                }
+                else
+                {
+                    System.out.println("NAO Existe");
+                }
+            }
+      
+        }
+        }
+        catch (Exception e)
+        {
+            
+        }
+
+    }//GEN-LAST:event_pesquisarButtonActionPerformed
+
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        logout();
+    }//GEN-LAST:event_logoutButtonActionPerformed
+
+    private void origemComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_origemComboBoxActionPerformed
+//DaoRota dr;
+        try {
+     //       dr = new DaoRota();
+            
+            Conexao con = resultConexao.get(origemComboBox.getSelectedIndex()-1);
+            Voo vbase = con.getVoo().get(0);
+        for (Conexao c : resultConexao)
+        {
+            if(vbase.getRota().getOrigem().getID() == c.getVoo().get(0).getRota().getOrigem().getID())
+            {
+                Voo v = con.getVoo().get(con.getVoo().size()-1);
+                resultadoRotaDestino.add(v.getRota());
+            }
+            
+        }  
+              
+        
+            
+          //  resultadoRotaDestino = dr.getRotasByDestino(resultadoRotaOrigem.get(origemComboBox.getSelectedIndex()-1).getOrigem().getID());
+            arrayDestino.clear();
+            arrayDestino.add("Destino");
+            destinoComboBox.setModel(new javax.swing.DefaultComboBoxModel(arrayDestino.toArray())); 
+        
+        //System.out.println(resultadoRotaOrigem.get(0).getDestino().getCidade());
+        for (Rota aux : resultadoRotaDestino)
+        {
+            int count = 0;
+            arrayDestino.add(aux.getDestino().getNome() + " - " + aux.getDestino().getCidade());
+            for (String s : arrayDestino)
+            {
+                if (s.compareTo(aux.getDestino().getNome() + " - " + aux.getDestino().getCidade()) == 0)
+                {
+                    count++;
+                }
+            }
+            if (count>1)
+            {
+                arrayDestino.remove(arrayDestino.size()-1);
+            }
+        }
+        destinoComboBox.setModel(new javax.swing.DefaultComboBoxModel(arrayDestino.toArray()));   
+        } catch (SQLException ex) {
+            Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+           // Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
+    }//GEN-LAST:event_origemComboBoxActionPerformed
+
+    private void destinoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinoComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_destinoComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,7 +385,15 @@ logout();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new mainFrame().setVisible(true);
+                try {
+                    new mainFrame().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -211,12 +401,12 @@ logout();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> anoComboBox;
     private frames.comLogin comLogin1;
-    private javax.swing.JTextField destinoTextField;
+    private javax.swing.JComboBox destinoComboBox;
     private javax.swing.JComboBox<String> diaComboBox;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JComboBox<String> mesComboBox;
-    private javax.swing.JTextField origemTextField;
+    private javax.swing.JComboBox origemComboBox;
     private javax.swing.JButton pesquisarButton;
-    private frames.semLogin semLogin1;
     // End of variables declaration//GEN-END:variables
 }

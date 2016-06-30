@@ -65,6 +65,57 @@ public class DaoRota {
        return resultado;
    }
       
+      public ArrayList<Rota> getRotasByOrigem() throws SQLException, ClassNotFoundException
+   {
+        ArrayList<Rota> resultado = new ArrayList<>();
+        
+        Connection myConn = this.c.getConnection();       
+        Statement myStmt = myConn.createStatement();
+        ResultSet myRS = myStmt.executeQuery("select * from rota group by origemID");
+
+        while (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            int origem = Integer.parseInt(myRS.getString("origemID"));
+            int destino = Integer.parseInt(myRS.getString("destinoID"));
+            DaoAeroporto da = new DaoAeroporto();
+            Aeroporto aerOrigem = da.getAeroportoByID(origem);
+            Aeroporto aerDestino = da.getAeroportoByID(destino);
+            Rota aux = new Rota(aerOrigem, aerDestino);
+            aux.setID(id);            
+            resultado.add(aux);
+        }
+       
+       return resultado;
+   }
+      
+      public ArrayList<Rota> getRotasByDestino(int idOR) throws SQLException, ClassNotFoundException
+   {
+        ArrayList<Rota> resultado = new ArrayList<>();
+        
+        Connection myConn = this.c.getConnection();       
+       
+         String sql = "select * from rota where origemID = ? group by destinoID";
+        
+        PreparedStatement myStmt = myConn.prepareStatement(sql);
+         myStmt.setInt(1, idOR);
+                
+        ResultSet myRS = myStmt.executeQuery();
+        
+        while (myRS.next()) {
+            int id = Integer.parseInt(myRS.getString("id"));
+            int origem = Integer.parseInt(myRS.getString("origemID"));
+            int destino = Integer.parseInt(myRS.getString("destinoID"));
+            DaoAeroporto da = new DaoAeroporto();
+            Aeroporto aerOrigem = da.getAeroportoByID(origem);
+            Aeroporto aerDestino = da.getAeroportoByID(destino);
+            Rota aux = new Rota(aerOrigem, aerDestino);
+            aux.setID(id);            
+            resultado.add(aux);
+        }
+       
+       return resultado;
+   }
+      
        public Rota getRotasByID(int searchID) throws SQLException, ClassNotFoundException
    {
         

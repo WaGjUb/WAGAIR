@@ -77,8 +77,11 @@ public class DaoVoo {
             Aviao aviao = da.getAvioesByID(aviaoID);
             Calendar calPartida = Calendar.getInstance();
             Calendar calChegada = Calendar.getInstance();
-            calPartida.setTime(new Date(dataPartida.getTime()));
-            calChegada.setTime(new Date(dataChegada.getTime()));
+            calPartida.set(dataPartida.getYear(), dataPartida.getMonth(), dataPartida.getDate(), dataPartida.getHours(), dataPartida.getMinutes());
+            calChegada.set(dataChegada.getYear(), dataChegada.getMonth(), dataChegada.getDate(), dataChegada.getHours(), dataChegada.getMinutes());
+            
+            //calPartida.setTime(new Date(dataPartida.getTime()));
+            //calChegada.setTime(new Date(dataChegada.getTime()));
             Voo aux = new Voo(calPartida, calChegada, aviao, assentosLivres, rota);
             aux.setID(id);                      
             return aux;

@@ -6,6 +6,7 @@
 package wagair;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,6 +43,29 @@ public class Conexao {
 
     public ArrayList<Voo> getVoo() {
         return voo;
+    }
+    
+    public boolean getVooInDate(Calendar c, Rota or, Rota ds) throws Exception {
+        ArrayList<Voo> result = new ArrayList<>();
+        
+        Voo sai = this.voo.get(0);
+        Voo chega = this.voo.get(this.voo.size()-1);;
+        boolean verif = false;
+        
+        System.out.println(sai.getRota().getOrigem().getCidade());
+        System.out.println(chega.getRota().getDestino().getCidade());
+
+            System.out.println("dia " + sai.getDataPartida().getTime().getDay() + " -> " + c.getTime().getDay());
+            System.out.println("mes " + sai.getDataPartida().getTime().getMonth() + " -> " + c.getTime().getMonth());
+            System.out.println("ano " + sai.getDataPartida().getTime().getYear() + " -> " + c.getTime().getYear());
+            if ((sai.getRota().getOrigem().getID() ==  or.getOrigem().getID()) && (chega.getRota().getDestino().getID() ==  or.getDestino().getID()))// && (c.getTime().getDay() == sai.getDataPartida().getTime().getDay()) && (c.getTime().getMonth() == sai.getDataPartida().getTime().getMonth() && (c.getTime().getYear() == sai.getDataPartida().getTime().getYear())))
+            {
+                verif = true;
+            }
+            
+        
+        
+        return verif;
     }
 
     public int getQuantidade() {
@@ -96,6 +120,7 @@ public class Conexao {
                     }
     }
        
+
        
         public boolean removerVoo (Voo voo) //cuidado ao usar
     {

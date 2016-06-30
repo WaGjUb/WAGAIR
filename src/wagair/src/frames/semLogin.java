@@ -15,9 +15,13 @@ public class semLogin extends javax.swing.JPanel {
      * Creates new form semLogin
      */
     private mainFrame m;
-    public semLogin(mainFrame mainframe) {
+    public void setMain(mainFrame mainframe)
+    {
+      this.m = mainframe;  
+    }
+    public semLogin() {
         initComponents();
-        this.m = mainframe;
+        
        
     }
 
